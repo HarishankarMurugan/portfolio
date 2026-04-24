@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harishankar MURUGAN — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#f4f4f0;--card:#ffffff;--card2:#f9f9f6;--border:#e5e4df;
+--ink:#111110;--ink2:#3a3935;--ink3:#6d6a62;--ink4:#a09c93;
+--accent:#2563eb;--accent2:#1d4ed8;--accent-bg:rgba(37,99,235,.06);
+--accent-glow:rgba(37,99,235,.18);
+--radius:20px;
+--shadow-sm:0 2px 8px rgba(0,0,0,.04);
+--shadow-md:0 8px 30px rgba(0,0,0,.06);
+--shadow-lg:0 20px 60px rgba(0,0,0,.08);
+}
+[data-theme="dark"]{
+--bg:#0a0a09;--card:#16161a;--card2:#1c1c20;--border:#28282e;
+--ink:#f0efe9;--ink2:#bab5aa;--ink3:#7f7b72;--ink4:#55524b;
+--accent:#60a5fa;--accent2:#3b82f6;--accent-bg:rgba(96,165,250,.08);
+--accent-glow:rgba(96,165,250,.25);
+--shadow-sm:0 2px 8px rgba(0,0,0,.3);
+--shadow-md:0 8px 30px rgba(0,0,0,.4);
+--shadow-lg:0 20px 60px rgba(0,0,0,.5);
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',sans-serif;line-height:1.6;transition:background .6s ease,color .6s ease;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#fff}
+
+/* GRADIENT ORBS */
+.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;opacity:.35}
+.orb-1{width:500px;height:500px;background:var(--accent);top:-200px;left:-100px;animation:orbFloat 20s ease-in-out infinite}
+.orb-2{width:400px;height:400px;background:#8b5cf6;bottom:-150px;right:-100px;animation:orbFloat 25s ease-in-out infinite reverse}
+[data-theme="dark"] .orb{opacity:.15}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,40px) scale(1.1)}}
+
+/* SCROLL PROGRESS */
+.scroll-bar{position:fixed;top:0;left:0;width:0;height:3px;background:linear-gradient(90deg,var(--accent),#8b5cf6);z-index:10000;transition:width .1s ease-out}
+
+/* NAV */
+.nav{position:fixed;top:1rem;left:50%;transform:translateX(-50%);z-index:999;padding:.6rem .8rem .6rem 1.5rem;background:var(--card);border:1px solid var(--border);border-radius:100px;display:flex;align-items:center;gap:1.2rem;box-shadow:var(--shadow-sm);transition:background .5s,border-color .5s,transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.nav.hidden{transform:translateX(-50%) translateY(-120%)}
+.nav:hover{box-shadow:var(--shadow-md)}
+.nav-name{font-weight:800;font-size:.9rem;letter-spacing:-.02em;white-space:nowrap;background:linear-gradient(135deg,var(--accent),#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:1rem;list-style:none}
+.nav-links a{font-size:.7rem;font-weight:600;color:var(--ink3);transition:color .3s;position:relative;padding:.2rem 0}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--accent);transition:width .3s ease}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:.5rem;margin-left:auto}
+.nav-cta{padding:.5rem 1.2rem;background:var(--accent);color:#fff;font-size:.68rem;font-weight:700;border-radius:100px;transition:all .3s;white-space:nowrap}
+.nav-cta:hover{color:#fff;transform:translateY(-1px);box-shadow:0 8px 20px var(--accent-glow)}
+.toggle{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;flex-shrink:0}
+.toggle:hover{border-color:var(--accent);transform:rotate(15deg)}
+.toggle svg{width:14px;height:14px;stroke:var(--ink3);fill:none;stroke-width:2;transition:stroke .3s}
+.toggle:hover svg{stroke:var(--accent)}
+.ic-m,.ic-s{display:none}
+[data-theme="dark"] .ic-s{display:block}
+[data-theme="light"] .ic-m{display:block}
+
+.page{max-width:1200px;margin:0 auto;padding:5rem 1.5rem 3rem;position:relative;z-index:1}
+
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;align-items:stretch}
+.cell{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.8rem;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .4s,border-color .4s,background .5s;overflow:hidden;position:relative}
+.cell:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--accent);transition:all .3s ease}
+.c2{grid-column:span 2}
+.c3{grid-column:span 3}
+.c4{grid-column:span 4}
+
+/* HERO */
+.hero-cell{grid-column:span 2;padding:3rem;display:flex;flex-direction:column;justify-content:center}
+.hero-overline{font-family:'Geist Mono',monospace;font-size:.62rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.hero-overline .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;box-shadow:0 0 0 0 var(--accent-glow)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--accent-glow)}70%{box-shadow:0 0 0 12px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.hero-cell h1{font-size:3.4rem;font-weight:800;line-height:.98;letter-spacing:-.04em;margin-bottom:1rem}
+.hero-cell h1 span{background:linear-gradient(135deg,var(--accent) 0%,#8b5cf6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% 100%;animation:shimmer 6s ease-in-out infinite}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-desc{font-size:.95rem;color:var(--ink2);max-width:520px;line-height:1.75;margin-bottom:1.8rem}
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap}
+.hb-main,.hb-sec{padding:.75rem 1.8rem;border-radius:12px;font-weight:700;font-size:.78rem;transition:all .4s cubic-bezier(.2,.8,.2,1);display:inline-flex;align-items:center;gap:.5rem;cursor:pointer}
+.hb-main{background:var(--accent);color:#fff;border:1.5px solid var(--accent)}
+.hb-main:hover{transform:translateY(-2px);box-shadow:0 12px 30px var(--accent-glow);color:#fff;background:var(--accent2)}
+.hb-main svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;transition:transform .3s}
+.hb-main:hover svg{transform:translateX(4px)}
+.hb-sec{background:transparent;border:1.5px solid var(--border);color:var(--ink2)}
+.hb-sec:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.hb-sec svg{transition:transform .3s}
+.hb-sec:hover svg{transform:translateY(3px)}
+
+/* PHOTO CELL - matches hero height */
+.photo-cell{grid-column:span 2;background:var(--card2);padding:0;position:relative;overflow:hidden;min-height:100%}
+.photo-cell .ph-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;z-index:1}
+.photo-cell .ph-circle{width:80px;height:80px;border-radius:50%;border:2px dashed var(--border);display:flex;align-items:center;justify-content:center}
+.photo-cell .ph-circle svg{width:30px;height:30px;stroke:var(--ink4);fill:none;stroke-width:1.5}
+.photo-cell .ph-label{font-size:.65rem;color:var(--ink4);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.photo-cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;transition:transform .6s ease}
+.photo-cell:hover img{transform:scale(1.04)}
+
+/* STATS */
+.stat-cell{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;position:relative}
+.stat-cell::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,var(--accent-bg),transparent 70%);opacity:0;transition:opacity .5s;pointer-events:none}
+.stat-cell:hover::after{opacity:1}
+.stat-num{font-size:2.8rem;font-weight:800;color:var(--accent);line-height:1;font-variant-numeric:tabular-nums}
+.stat-label{font-size:.62rem;color:var(--ink4);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:.4rem}
+
+/* SECTION HEADER */
+.sec-cell{padding:1.5rem 1.8rem;background:transparent;border:none}
+.sec-cell:hover{transform:none;box-shadow:none;border-color:transparent}
+.sec-header{display:flex;align-items:center;gap:1.2rem}
+.sec-img{width:60px;height:60px;border-radius:14px;border:1.5px dashed var(--border);background:var(--card);flex-shrink:0;overflow:hidden;position:relative;transition:transform .4s;display:none}
+.sec-cell:hover .sec-img{transform:rotate(-6deg) scale(1.05)}
+.sec-img .sec-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;z-index:1}
+.sec-img .sec-fallback svg{width:22px;height:22px;stroke:var(--ink4);fill:none;stroke-width:1.5}
+.sec-img .sec-fallback span{font-size:.42rem;color:var(--ink4);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.sec-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+.sec-text{flex:1}
+.sec-label{font-family:'Geist Mono',monospace;font-size:.58rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3rem}
+.sec-title{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:0}
+
+/* EXPERIENCE */
+.exp-cell{padding:2rem;display:flex;gap:2rem;align-items:flex-start}
+.exp-head{margin-bottom:.8rem}
+.logo-box{width:200px;height:140px;border-radius:16px;border:1.5px solid var(--border);background:var(--card2);flex-shrink:0;overflow:hidden;position:relative;transition:all .4s;display:flex;align-items:center;justify-content:center}
+[data-theme="dark"] .logo-box{background:#1a1a1a}
+.exp-cell:hover .logo-box{border-color:var(--accent);transform:rotate(-4deg) scale(1.05)}
+.logo-box .logo-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;z-index:1}
+.logo-box .logo-fallback svg{width:40px;height:40px;stroke:var(--ink4);fill:none;stroke-width:1.5}
+.logo-box .logo-fallback span{font-size:.52rem;color:var(--ink4);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.logo-box img{max-width:90%;max-height:90%;width:auto;height:auto;object-fit:contain;z-index:2;position:relative}
+.logo-box img[src]:not([src=""]) + .logo-fallback,
+.logo-box:has(img[src]:not([src=""])) .logo-fallback{display:none}
+.logo-light{display:block}
+.logo-dark{display:none}
+[data-theme="dark"] .logo-light{display:none}
+[data-theme="dark"] .logo-dark{display:block}
+.exp-content{flex:1}
+.exp-info h3{font-size:1.05rem;font-weight:700;line-height:1.25}
+.exp-info .co{font-size:.82rem;font-weight:700;margin-top:.2rem}
+.co.blue{color:var(--accent)}
+.co.teal{color:#0d9488}
+[data-theme="dark"] .co.teal{color:#2dd4bf}
+.co.rose{color:#e11d48}
+[data-theme="dark"] .co.rose{color:#fb7185}
+.exp-meta{font-family:'Geist Mono',monospace;font-size:.65rem;color:var(--ink4);margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px dashed var(--border)}
+.exp-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.exp-list li{font-size:.87rem;color:var(--ink2);line-height:1.75;padding-left:1.4rem;position:relative;transition:color .3s,transform .3s}
+.exp-list li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.4;transition:all .3s}
+.exp-list li:hover{color:var(--ink);transform:translateX(2px)}
+.exp-list li:hover::before{opacity:1;transform:scale(1.3);box-shadow:0 0 0 4px var(--accent-bg)}
+.exp-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1.2rem}
+.xt{padding:.3rem .7rem;background:var(--accent-bg);color:var(--accent);font-size:.68rem;font-weight:600;border-radius:100px;transition:all .3s}
+.xt:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
+
+/* SKILLS */
+.sk-title{font-size:.82rem;font-weight:700;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+.sk-title .skd{width:8px;height:8px;border-radius:2px;display:inline-block;transition:transform .3s}
+.cell:hover .sk-title .skd{transform:rotate(45deg) scale(1.2)}
+.sk-wrap{display:flex;flex-wrap:wrap;gap:.35rem}
+.sk{padding:.35rem .7rem;background:var(--card2);border:1px solid var(--border);font-size:.73rem;border-radius:100px;color:var(--ink2);font-weight:500;transition:all .3s;cursor:pointer}
+.sk:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);transform:translateY(-2px)}
+
+/* PROJECTS */
+.proj-card{position:relative;min-height:320px;padding:2.5rem;background-size:cover;background-position:center;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.proj-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.85) 100%);z-index:1}
+[data-theme="dark"] .proj-card::before{background:linear-gradient(to bottom,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.92) 100%)}
+.proj-card>*{position:relative;z-index:2}
+.proj-badge{display:inline-block;padding:.25rem .65rem;font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:100px;margin-bottom:.6rem}
+.proj-badge.ml{background:var(--accent-bg);color:var(--accent)}
+.proj-badge.bi{background:rgba(13,148,136,.08);color:#0d9488}
+[data-theme="dark"] .proj-badge.bi{background:rgba(45,212,191,.08);color:#2dd4bf}
+.proj-name{font-size:1.4rem;font-weight:700;margin-bottom:.8rem;line-height:1.2;color:#fff}
+.proj-desc{font-size:.92rem;color:rgba(255,255,255,0.9);line-height:1.75;margin-bottom:1.2rem;max-width:700px}
+.proj-foot{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.15);gap:.5rem;flex-wrap:wrap}
+.proj-techs{display:flex;gap:.4rem;flex-wrap:wrap}
+.pt{padding:.3rem .7rem;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.08);font-size:.65rem;border-radius:6px;color:rgba(255,255,255,0.85);font-weight:500;transition:all .3s;backdrop-filter:blur(10px)}
+.proj-card:hover .pt{border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.15);color:#fff}
+.proj-link{font-size:.75rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:.4rem;white-space:nowrap;padding:.5rem 1rem;background:rgba(255,255,255,0.12);border-radius:8px;transition:all .3s;backdrop-filter:blur(10px)}
+.proj-link:hover{background:rgba(255,255,255,0.25);transform:translateX(4px)}
+.proj-link svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;transition:transform .3s}
+.proj-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:170px}
+.ph-ring{width:44px;height:44px;border-radius:50%;border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:.7rem;transition:all .4s}
+.cell:hover .ph-ring{border-color:var(--accent);transform:rotate(90deg)}
+.ph-ring svg{width:18px;height:18px;stroke:var(--ink4);fill:none;stroke-width:2;transition:stroke .4s}
+.cell:hover .ph-ring svg{stroke:var(--accent)}
+.proj-ph p{font-size:.78rem;color:var(--ink3);font-weight:600}
+.proj-ph small{font-size:.65rem;color:var(--ink4);opacity:.7;margin-top:.2rem}
+
+/* CERTS */
+.cert-item{padding:.85rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;transition:all .3s}
+.cert-item:last-child{border-bottom:none}
+.cert-item:hover{padding-left:.5rem}
+.cert-nm{font-size:.82rem;font-weight:600;transition:color .3s}
+.cert-item:hover .cert-nm{color:var(--accent)}
+.cert-meta{font-family:'Geist Mono',monospace;font-size:.6rem;color:var(--ink4);white-space:nowrap}
+.cert-ip{display:inline-block;padding:.2rem .5rem;background:var(--accent-bg);color:var(--accent);font-size:.55rem;font-weight:700;border-radius:100px;letter-spacing:.05em;text-transform:uppercase;animation:pulse 2s infinite}
+
+/* EDUCATION */
+.edu-block{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px dashed var(--border)}
+.edu-block:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.edu-featured{background:var(--card2);padding:2rem;border-radius:var(--radius);border:1.5px solid var(--border);margin-bottom:2rem}
+.edu-head{display:flex;align-items:center;gap:.9rem;margin-bottom:.6rem}
+.edu-logo{width:140px;height:100px;border-radius:14px;border:1.5px solid var(--border);background:#fff;flex-shrink:0;overflow:hidden;position:relative;transition:all .4s;display:flex;align-items:center;justify-content:center;padding:8px}
+.edu-featured .edu-logo{width:180px;height:120px;border-radius:16px;border:2px solid var(--border);background:#fff;padding:12px}
+[data-theme="dark"] .edu-logo{background:#fff;border-color:#ddd}
+[data-theme="dark"] .edu-featured .edu-logo{background:#fff;border-color:#ddd}
+[data-theme="dark"] .edu-logo{background:#1a1a1a}
+.cell:hover .edu-logo{border-color:var(--accent);transform:rotate(4deg)}
+.edu-logo .logo-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;z-index:1}
+.edu-logo .logo-fallback svg{width:28px;height:28px;stroke:var(--ink4);fill:none;stroke-width:1.5}
+.edu-logo .logo-fallback span{font-size:.44rem;color:var(--ink4);font-weight:700;text-transform:uppercase}
+.edu-logo img{max-width:90%;max-height:90%;width:auto;height:auto;object-fit:contain;z-index:2;position:relative}
+.edu-deg{font-size:1.02rem;font-weight:700;line-height:1.25}
+.edu-featured .edu-deg{font-size:1.3rem;font-weight:800}
+.edu-sch{font-size:.82rem;font-weight:600;color:var(--accent);margin-top:.15rem}
+.edu-per{font-family:'Geist Mono',monospace;font-size:.65rem;color:var(--ink4);margin:.5rem 0}
+.edu-info{font-size:.82rem;color:var(--ink3);line-height:1.7}
+
+/* PHOTOGRAPHY GALLERY */
+#photos{transition:none !important;animation:none !important;opacity:1 !important}
+#photos.cell{transition:all .3s ease !important}
+#photos.cell:hover{transform:translateY(-2px) !important;box-shadow:var(--shadow-lg) !important;border-color:var(--accent) !important}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.gallery-item{aspect-ratio:4/3;background:var(--card2);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .3s ease}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+.gallery-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--accent)}
+.gallery-item:hover img{transform:scale(1.05)}
+.gallery-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;color:var(--ink4)}
+.gallery-placeholder svg{width:60px;height:60px;opacity:.3;margin-bottom:.8rem;stroke:currentColor;fill:none}
+.gallery-placeholder span{font-size:.8rem;font-weight:600;letter-spacing:.05em}
+.gallery-item{position:relative;aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;background:var(--card2);border:1.5px solid var(--border);cursor:pointer;transition:all .4s}
+.gallery-item:hover{transform:translateY(-4px);box-shadow:0 12px 40px var(--shadow)}
+.gallery-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.8rem;color:var(--ink4)}
+.gallery-placeholder svg{width:48px;height:48px;stroke:var(--ink4);fill:none;stroke-width:1.5}
+.gallery-placeholder span{font-size:.8rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.gallery-item:hover img{transform:scale(1.08)}
+
+/* MAP SECTION */
+#map{transition:none !important;animation:none !important;opacity:1 !important}
+#map.cell{transition:all .3s ease !important}
+#map.cell:hover{transform:translateY(-2px) !important;box-shadow:var(--shadow-lg) !important;border-color:var(--accent) !important}
+.map-container{position:relative;width:100%;height:450px;border-radius:var(--radius);overflow:hidden;background:var(--card2);border:1.5px solid var(--border)}
+.map-container iframe{width:100%;height:100%;border:none;display:block}
+
+/* CONTACT */
+.contact-cell{background:linear-gradient(135deg,var(--card2) 0%,var(--card) 100%);color:var(--ink);border-color:var(--border);grid-column:span 4;text-align:center;padding:2rem 2rem 2.5rem 2rem;position:relative;overflow:hidden}
+[data-theme="dark"] .contact-cell{background:linear-gradient(135deg,#1a1a1a 0%,#0f0f0f 100%);color:#fff}
+.contact-cell::after{content:'';position:absolute;top:50%;left:50%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,var(--accent-glow),transparent 70%);transform:translate(-50%,-50%);pointer-events:none;animation:contactGlow 8s ease-in-out infinite}
+@keyframes contactGlow{0%,100%{opacity:.3}50%{opacity:.6}}
+.contact-cell:hover{transform:none;box-shadow:none}
+.contact-cell>*{position:relative;z-index:1}
+.contact-big{font-size:2.2rem;font-weight:800;letter-spacing:-.04em;margin-bottom:.4rem;line-height:1.05}
+[data-theme="dark"] .contact-big{color:#fff}
+.contact-big span{background:linear-gradient(135deg,var(--accent),#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.contact-sub{font-size:.88rem;color:var(--ink3);margin-bottom:1.5rem}
+[data-theme="dark"] .contact-sub{color:rgba(255,255,255,.7)}
+.contact-form{max-width:700px;margin:0 auto;text-align:left}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+.form-group{margin-bottom:.8rem}
+.form-group label{display:block;font-size:.75rem;font-weight:600;color:var(--ink2);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+[data-theme="dark"] .form-group label{color:rgba(255,255,255,.8)}
+.form-group input,.form-group textarea{width:100%;padding:.8rem 1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px;color:var(--ink);font-size:.88rem;font-family:inherit;transition:all .3s}
+[data-theme="dark"] .form-group input,[data-theme="dark"] .form-group textarea{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;backdrop-filter:blur(10px)}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--ink4)}
+[data-theme="dark"] .form-group input::placeholder,[data-theme="dark"] .form-group textarea::placeholder{color:rgba(255,255,255,.4)}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+[data-theme="dark"] .form-group input:focus,[data-theme="dark"] .form-group textarea:focus{background:rgba(255,255,255,.12)}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-submit{width:100%;padding:.9rem 2rem;background:var(--accent);color:#fff;font-size:.88rem;font-weight:700;border:none;border-radius:12px;cursor:pointer;transition:all .3s;margin-top:.5rem}
+.form-submit:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 12px 30px var(--accent-glow)}
+.form-submit:active{transform:translateY(0)}
+.form-status{margin-top:.8rem;padding:.8rem;border-radius:8px;font-size:.85rem;text-align:center;display:none}
+.form-status.success{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);color:#10b981}
+.form-status.error{background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#ef4444}
+@media(max-width:650px){.form-row{grid-template-columns:1fr}}
+.cc-row{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap}
+.cc{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.3rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.6);transition:all .3s;cursor:pointer}
+.cc:hover{border-color:var(--accent);color:#fff;background:var(--accent-bg);transform:translateY(-2px)}
+.cc svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+
+footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position:relative;z-index:1}
+
+.anim{opacity:0;transform:translateY(30px);transition:all .9s cubic-bezier(.2,.8,.2,1)}
+.anim.on{opacity:1;transform:translateY(0)}
+
+@media(max-width:900px){
+  .nav{padding:.5rem .6rem .5rem 1rem;gap:.6rem}
+  .nav-links{display:none}
+  .page{padding:4.5rem 1rem 2rem}
+  .bento{grid-template-columns:1fr 1fr;gap:.8rem}
+  .c2,.c3,.c4{grid-column:span 2}
+  .hero-cell{grid-column:span 2;padding:2rem}
+  .hero-cell h1{font-size:2.4rem}
+  .photo-cell{grid-column:span 2}
+  .contact-cell{grid-column:span 2;padding:2.5rem 1.5rem}
+  .stat-num{font-size:2rem}
+  .exp-cell{flex-direction:column;gap:1rem}
+  .logo-box{width:160px;height:110px}
+}
+@media(max-width:550px){
+  .bento{grid-template-columns:1fr}
+  .c2,.c3,.c4{grid-column:span 1}
+  .hero-cell,.photo-cell,.contact-cell{grid-column:span 1}
+  .contact-big{font-size:2rem}
+  .sec-cell{padding:1rem}
+  .exp-cell{padding:1.5rem}
+}
+</style>
+</head>
+<body data-theme="light">
+
+<div class="scroll-bar"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<nav class="nav">
+  <div class="nav-name">HM.</div>
+  <ul class="nav-links">
+    <li><a href="#exp">Expérience</a></li>
+    <li><a href="#skills">Compétences</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#edu">Formation</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#contact" class="nav-cta">Contact</a>
+    <div class="toggle" onclick="toggleTheme()">
+      <svg class="ic-m" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="ic-s" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+<div class="bento">
+
+<!-- HERO -->
+<div class="cell hero-cell">
+  <div class="hero-overline"><span class="dot"></span> <span id="rotatingTitle">Data Analyst</span> · Disponible</div>
+  <h1>Harishankar<br><span>MURUGAN</span></h1>
+  <p class="hero-desc">Expert en Power BI, SQL, Python et Excel. Je transforme des données complexes en insights stratégiques pour un impact business mesurable.</p>
+  <div class="hero-btns">
+    <a class="hb-main" data-email="harishankarmurugan21" data-domain="gmail.com">Me contacter <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="CV-Harishankar-Murugan.pdf" download class="hb-sec">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;margin-right:6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Télécharger mon CV
+    </a>
+  </div>
+</div>
+
+<!-- PHOTO (2207x1242 landscape) -->
+<div class="cell photo-cell anim">
+  <div class="ph-fallback">
+    <div class="ph-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+    <div class="ph-label">profile-photo.jpg</div>
+  </div>
+  <img src="profile-photo.jpg" alt="Harishankar Murugan" onerror="this.style.display='none'">
+</div>
+
+<!-- STATS -->
+<div class="cell stat-cell anim"><div class="stat-num" data-count="3" data-suffix="+">0</div><div class="stat-label">Ans d'exp.</div></div>
+<div class="cell stat-cell anim"><div class="stat-num" data-count="12" data-suffix="%">0</div><div class="stat-label">Hausse ventes</div></div>
+<div class="cell stat-cell anim"><div class="stat-num" data-count="20" data-suffix="%">0</div><div class="stat-label">Croissance CA</div></div>
+<div class="cell stat-cell anim"><div class="stat-num" data-count="6" data-suffix="+">0</div><div class="stat-label">Certifications</div></div>
+
+<!-- EXPERIENCE HEADER -->
+<div class="cell sec-cell c4 anim" id="exp">
+  <div class="sec-header">
+    <div class="sec-img">
+      <div class="sec-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7h-4V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg><span>experience</span></div>
+      <img src="section-experience.png" alt="Expérience" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+    </div>
+    <div class="sec-text">
+      <div class="sec-label">01 — Expérience</div>
+      <h2 class="sec-title">Parcours professionnel</h2>
+    </div>
+  </div>
+</div>
+
+<!-- REVCOO -->
+<div class="cell exp-cell c4 anim">
+  <div class="logo-box">
+    <div class="logo-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg><span>Logo</span></div>
+    <img src="logo-revcoo.png" alt="REVCOO" class="logo-light" onload="this.parentElement.querySelector('.logo-fallback').style.display='none'" onerror="this.style.display='none'">
+    <img src="logo-revcoo-dark.png" alt="REVCOO" class="logo-dark" onload="this.parentElement.querySelector('.logo-fallback').style.display='none'" onerror="this.style.display='none'">
+  </div>
+  <div class="exp-content">
+    <div class="exp-head">
+      <div class="exp-info">
+        <h3>Power BI &amp; Data Analyst (Stagiaire)</h3>
+        <div class="co blue">REVCOO</div>
+      </div>
+    </div>
+    <div class="exp-meta">Sep 2025 — Mar 2026 · Lyon, Auvergne-Rhône-Alpes, France · Hybride</div>
+    <ul class="exp-list">
+      <li>Analyse et structuration de données complexes issues de sources multiples (PDF, Excel, Word) pour créer un référentiel harmonisé des émetteurs de CO₂, projets d'offtake et infrastructures — garantissant cohérence, fiabilité et comparabilité inter-régionale.</li>
+      <li>Nettoyage, transformation et standardisation de sources de données variées en jeux de données structurés et prêts à l'analyse à l'aide de Python et Excel, améliorant la qualité et la cohérence des données.</li>
+      <li>Intégration de datasets de coûts d'électricité (Europe &amp; Amérique du Nord) dans un modèle de coûts du captage carbone — amélioration de la précision des estimations CAPEX, O&amp;M et énergie pour une évaluation économique robuste.</li>
+      <li>Développement d'un tableau de bord Power BI interactif intégré à ArcGIS, offrant une visualisation géospatiale avancée et une modélisation complète de la chaîne de valeur du CO₂ — de la capture au transport multimodal (route &amp; rail) basé sur des distances réelles.</li>
+      <li>Élaboration de modèles de coûts détaillés sous Excel, fournissant des estimations précises pour la capture de carbone et le transport multimodal (OPEX, CAPEX, maintenance, énergie, logistique).</li>
+      <li>Pilotage du développement du tableau de bord en tant que responsabilité principale, permettant l'optimisation des appariements émetteurs–acheteurs et l'analyse géospatiale avancée.</li>
+      <li>Identification basée sur les données d'opportunités à forte valeur ajoutée via un moteur d'optimisation évaluant des milliers de couples émetteur–offtaker — réduction des approximations et aide à la décision stratégique.</li>
+    </ul>
+    
+    <!-- Manager Appreciation -->
+    <div style="margin-top:1.5rem;margin-bottom:1rem;padding:1.2rem;background:linear-gradient(135deg,rgba(37,99,235,0.05),rgba(37,99,235,0.02));border-left:3px solid #2563eb;border-radius:8px;clear:both;max-width:100%;box-sizing:border-box;overflow:hidden">
+      <div style="display:flex;align-items:start;gap:.8rem">
+        <svg style="width:24px;height:24px;flex-shrink:0;margin-top:.2rem;color:#2563eb" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+        </svg>
+        <div style="flex:1">
+          <p style="font-size:.95rem;line-height:1.6;color:var(--ink2);font-style:italic;margin:0 0 .8rem 0">
+            « Sa polyvalence, sa rigueur et son sens de l'innovation font de lui un Data Analyst précieux, capable de s'épanouir dans des environnements exigeants et en évolution. »
+          </p>
+          <div style="padding-top:.8rem;border-top:1px solid var(--border)">
+            <div style="font-weight:600;font-size:.85rem;color:var(--ink1)">Juliette POUPENEY</div>
+            <div style="font-size:.75rem;color:var(--ink3);margin-top:.2rem">Directeur des ventes et du développement commercial</div>
+            <div style="font-size:.75rem;color:var(--ink4)">Sales and Marketing</div>
+          </div>
+          <a href="Lettre-Appreciation-REVCOO.pdf" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:.8rem;padding:.6rem 1rem;background:var(--accent);color:#fff;text-decoration:none;border-radius:6px;font-size:.8rem;font-weight:500;transition:all .3s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(37,99,235,0.3)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+            <svg style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            Voir la lettre d'appréciation
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="exp-tags"><span class="xt">Power BI</span><span class="xt">Python</span><span class="xt">ArcGIS</span><span class="xt">Excel</span><span class="xt">Modélisation</span><span class="xt">Analyse géospatiale</span></div>
+  </div>
+</div>
+
+<!-- NIQ -->
+<div class="cell exp-cell c4 anim">
+  <div class="logo-box">
+    <div class="logo-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg><span>Logo</span></div>
+    <img src="logo-niq.png" alt="NielsenIQ" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+  </div>
+  <div class="exp-content">
+    <div class="exp-head">
+      <div class="exp-info">
+        <h3>Data Processing Analyst — Spécialiste Portefeuille Opérations</h3>
+        <div class="co teal">NielsenIQ (NIQ)</div>
+      </div>
+    </div>
+    <div class="exp-meta">Oct 2023 — Oct 2024 · Chennai, Tamil Nadu, Inde · Sur site · Temps plein</div>
+    <ul class="exp-list">
+      <li>Analyse de la performance des gammes de produits pour des leaders FMCG — L'Oréal Paris (catégories Texture Longue Durée &amp; Soins Capillaires) et Reckitt (portefeuille Produits d'Entretien).</li>
+      <li>Analyses multidimensionnelles par marché, produit, période et indicateurs factuels (KPI) afin de générer des insights actionnables et renforcer les partenariats clients.</li>
+      <li>Impact mesurable : amélioration des résultats d'analyse des ventes de +12 % chez L'Oréal et +10 % chez Reckitt grâce à des recommandations data-driven orientées performance.</li>
+      <li>Collaboration avec des clients majeurs pour soutenir les stratégies marketing et commerciales via des analyses approfondies et des rapports stratégiques.</li>
+      <li>Utilisation de SQL et Excel pour l'extraction et l'analyse des données, Power BI/Excel pour des tableaux de bord clairs et percutants.</li>
+      <li>Gestion des tickets et des projets via Dynamics 365 — collaboration transverse pour une résolution rapide des problématiques.</li>
+      <li>Production de rapports clairs et synthétiques facilitant la prise de décision au niveau management et client.</li>
+    </ul>
+    <div class="exp-tags"><span class="xt">SQL</span><span class="xt">Power BI</span><span class="xt">Excel</span><span class="xt">Dynamics 365</span><span class="xt">FMCG Analytics</span><span class="xt">KPI</span></div>
+  </div>
+</div>
+
+<!-- AM CONSTRUCTION -->
+<div class="cell exp-cell c4 anim">
+  <div class="logo-box">
+    <div class="logo-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg><span>Logo</span></div>
+    <img src="logo-am-construction.png" alt="AM Construction" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+  </div>
+  <div class="exp-content">
+    <div class="exp-head">
+      <div class="exp-info">
+        <h3>Adjoint au Responsable d'Entrepôt et des Opérations</h3>
+        <div class="co rose">AM Construction Material Rental</div>
+      </div>
+    </div>
+    <div class="exp-meta">Sep 2022 — Août 2023 · Sur site · CDI · 1 an</div>
+    <ul class="exp-list">
+      <li>Supervision de la gestion des stocks, la maintenance et les achats d'équipements de location pour le secteur de la construction — optimisation de la disponibilité du matériel et réduction des temps d'arrêt.</li>
+      <li>Augmentation des ventes de location de 20 % grâce à une meilleure gestion du parc matériel et une disponibilité optimisée.</li>
+      <li>Gestion de la facturation, du suivi des stocks sur Excel et de la coordination avec les clients afin d'améliorer l'efficacité opérationnelle, la précision des données et la qualité des relations clients.</li>
+      <li>Mise en place de processus de suivi de stock améliorés pour une meilleure traçabilité et une réduction des écarts d'inventaire.</li>
+      <li>Collaboration étroite avec les équipes commerciales et techniques pour anticiper les besoins clients et optimiser les délais de livraison.</li>
+    </ul>
+    <div class="exp-tags"><span class="xt">Excel</span><span class="xt">Opérations</span><span class="xt">Gestion de stocks</span><span class="xt">Relation client</span><span class="xt">Facturation</span></div>
+  </div>
+</div>
+
+<!-- SKILLS HEADER -->
+<div class="cell sec-cell c4 anim" id="skills">
+  <div class="sec-header">
+    <div class="sec-img">
+      <div class="sec-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>skills</span></div>
+      <img src="section-skills.png" alt="Compétences" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+    </div>
+    <div class="sec-text">
+      <div class="sec-label">02 — Compétences</div>
+      <h2 class="sec-title">Outils &amp; technologies</h2>
+    </div>
+  </div>
+</div>
+
+<div class="cell anim">
+  <div class="sk-title"><span class="skd" style="background:var(--accent)"></span> Visualisation</div>
+  <div class="sk-wrap"><span class="sk">Power BI</span><span class="sk">Tableau</span><span class="sk">QlikSense</span><span class="sk">Matplotlib</span><span class="sk">Seaborn</span><span class="sk">Plotly</span></div>
+</div>
+<div class="cell anim">
+  <div class="sk-title"><span class="skd" style="background:#0d9488"></span> BDD &amp; ETL</div>
+  <div class="sk-wrap"><span class="sk">MySQL</span><span class="sk">SQL Server</span><span class="sk">Fabric</span><span class="sk">Azure</span><span class="sk">Neo4j</span><span class="sk">Talend</span><span class="sk">SSIS</span></div>
+</div>
+<div class="cell anim">
+  <div class="sk-title"><span class="skd" style="background:#16a34a"></span> Programmation</div>
+  <div class="sk-wrap"><span class="sk">Python</span><span class="sk">R</span><span class="sk">SQL</span><span class="sk">XGBoost</span><span class="sk">PyTorch</span><span class="sk">Statsmodels</span></div>
+</div>
+<div class="cell anim">
+  <div class="sk-title"><span class="skd" style="background:#8b5cf6"></span> Outils &amp; Langues</div>
+  <div class="sk-wrap"><span class="sk">Excel (Avancé)</span><span class="sk">Power Platform</span><span class="sk">Jupyter</span><span class="sk">VS Code</span><span class="sk">Dynamics 365</span><span class="sk">JIRA</span><span class="sk">Trello</span><span class="sk">Anglais</span><span class="sk">Français</span></div>
+</div>
+
+<!-- PROJECTS HEADER -->
+<div class="cell sec-cell c4 anim" id="projects">
+  <div class="sec-header">
+    <div class="sec-img">
+      <div class="sec-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><span>projects</span></div>
+      <img src="section-projects.png" alt="Projets" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+    </div>
+    <div class="sec-text">
+      <div class="sec-label">03 — Projets</div>
+      <h2 class="sec-title">Travaux réalisés</h2>
+    </div>
+  </div>
+</div>
+
+<div class="cell c4 anim proj-card" style="background-image:url('project-california.jpg')">
+  <div class="proj-badge ml">Machine Learning</div>
+  <div class="proj-name">Prédiction des prix immobiliers en Californie</div>
+  <p class="proj-desc">Développement d'un modèle de régression avancé pour prédire les valeurs médianes des logements en Californie à partir du dataset California Housing. Mise en œuvre complète du pipeline ML : nettoyage des données, analyse exploratoire approfondie (EDA), feature engineering avec création de variables pertinentes, et comparaison de plusieurs algorithmes (Régression Linéaire, Random Forest, XGBoost). Optimisation des hyperparamètres via GridSearchCV pour maximiser la performance prédictive. Évaluation rigoureuse avec métriques RMSE et R² sur ensemble de validation.</p>
+  <div class="proj-foot">
+    <div class="proj-techs"><span class="pt">Python</span><span class="pt">Scikit-learn</span><span class="pt">Pandas</span><span class="pt">NumPy</span><span class="pt">Matplotlib</span><span class="pt">Seaborn</span></div>
+    <a href="https://github.com/HarishankarMurugan11/california-housing-prediction" target="_blank" class="proj-link">Voir sur GitHub <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</div>
+
+<div class="cell c4 anim proj-card" style="background-image:url('project-sncf.jpeg')">
+  <div class="proj-badge bi">Power BI</div>
+  <div class="proj-name">Performance TER & Intercités SNCF</div>
+  <p class="proj-desc">Création d'un tableau de bord Power BI interactif analysant la performance opérationnelle des trains TER et Intercités SNCF. Visualisation détaillée des retards, annulations et arrivées tardives avec segmentation par région, département et période temporelle. Développement de mesures DAX complexes pour calculer les KPIs de ponctualité, taux d'annulation et impact sur les passagers. Modélisation relationnelle optimisée pour une navigation fluide entre dimensions géographiques et temporelles. Interface intuitive permettant d'identifier rapidement les axes d'amélioration du service ferroviaire régional.</p>
+  <div class="proj-foot">
+    <div class="proj-techs"><span class="pt">Power BI</span><span class="pt">DAX</span><span class="pt">Power Query</span><span class="pt">Modélisation</span><span class="pt">Visualisation</span></div>
+    <a href="https://github.com/HarishankarMurugan11/Performance-mensuelle-des-trains-TER-et-Intercites-SNCF" target="_blank" class="proj-link">Voir sur GitHub <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</div>
+
+<div class="cell anim">
+  <div class="proj-ph">
+    <div class="ph-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+    <p>Bientôt</p>
+    <small>Prochain projet</small>
+  </div>
+</div>
+
+<div class="cell anim">
+  <div class="proj-ph">
+    <div class="ph-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+    <p>Projet futur</p>
+    <small>En préparation</small>
+  </div>
+</div>
+
+<!-- CERTIFICATIONS -->
+<div class="cell c2 anim">
+  <div class="sec-header" style="margin-bottom:1rem">
+    <div class="sec-img">
+      <div class="sec-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg><span>certs</span></div>
+      <img src="section-certifications.png" alt="Certifications" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+    </div>
+    <div class="sec-text">
+      <div class="sec-label">04 — Certifications</div>
+      <h2 class="sec-title" style="font-size:1.2rem">Accréditations</h2>
+    </div>
+  </div>
+  <div class="cert-item"><span class="cert-nm">Neo4j Certified Professional</span><span class="cert-meta">Août 2025</span></div>
+  <div class="cert-item"><span class="cert-nm">DAX Avancé — Power BI</span><span class="cert-meta">Juil. 2025</span></div>
+  <div class="cert-item"><span class="cert-nm">PL-300 Data Analyst Associate</span><span class="cert-ip">En cours</span></div>
+  <div class="cert-item"><span class="cert-nm">Fabric Data Flows &amp; Storage</span><span class="cert-ip">En cours</span></div>
+  <div class="cert-item"><span class="cert-nm">MySQL Bootcamp Complet</span><span class="cert-meta">Août 2023</span></div>
+  <div class="cert-item"><span class="cert-nm">Power BI Virtual Case — PwC</span><span class="cert-meta">Juin 2023</span></div>
+  <div class="cert-item"><span class="cert-nm">Excel Avancé — Formules</span><span class="cert-meta">Fév. 2023</span></div>
+  <div class="cert-item"><span class="cert-nm">Python : De Zéro à Expert</span><span class="cert-meta">Jan. 2023</span></div>
+</div>
+
+<!-- EDUCATION -->
+<div class="cell c4 anim" id="edu">
+  <div class="sec-header" style="margin-bottom:1.5rem">
+    <div class="sec-img">
+      <div class="sec-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg><span>education</span></div>
+      <img src="section-education.png" alt="Formation" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+    </div>
+    <div class="sec-text">
+      <div class="sec-label">05 — Formation</div>
+      <h2 class="sec-title" style="font-size:1.2rem">Parcours académique</h2>
+    </div>
+  </div>
+
+  <!-- DSTI - Featured -->
+  <div class="edu-block edu-featured">
+    <div class="edu-head">
+      <div class="edu-logo">
+        <div class="logo-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg><span>Logo</span></div>
+        <img src="logo-dsti.png" alt="DSTI" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+      </div>
+      <div style="flex:1">
+        <div class="edu-deg">Master en Data Analytics & Intelligence Artificielle</div>
+        <div class="edu-sch">DSTI — Data ScienceTech Institute (School of Engineering)</div>
+      </div>
+    </div>
+    <div class="edu-per">Oct 2024 — Sep 2026 · Sophia-Antipolis, Côte d'Azur, France</div>
+    <div class="edu-info">Formation d'excellence en science des données et intelligence artificielle. Programme intensif couvrant l'analyse de données avancée, le machine learning, le deep learning, et la visualisation de données. Maîtrise approfondie de Power BI, Tableau, Python (Pandas, NumPy, Scikit-learn, TensorFlow), R, SQL, et méthodes Agile pour la gestion de projets data. Projets pratiques sur des cas réels d'entreprise incluant la modélisation prédictive, l'optimisation et le traitement du langage naturel. Accent mis sur l'application industrielle et le déploiement de solutions data en environnement professionnel.</div>
+  </div>
+
+  <!-- Bachelor - Minimal -->
+  <div class="edu-block">
+    <div style="margin-bottom:.6rem">
+      <div class="edu-deg">Bachelor en Technologies de l'Information</div>
+      <div class="edu-sch">Velammal Institute of Technology, Anna University · Chennai, Inde</div>
+    </div>
+    <div class="edu-per">Sep 2018 — Juil. 2022</div>
+    <div class="edu-info">CGPA : 7.8/10. Fondamentaux en informatique : structures de données, algorithmes, systèmes de gestion de bases de données (SGBD), Big Data (Hadoop, Hive).</div>
+  </div>
+</div>
+
+<!-- PHOTOGRAPHY -->
+<div class="cell c4" id="photos">
+  <div class="sec-header" style="margin-bottom:1.5rem">
+    <div class="sec-text">
+      <div class="sec-label">06 — Photographie</div>
+      <h2 class="sec-title" style="font-size:1.2rem">Mon album photo</h2>
+      <p style="font-size:.85rem;color:var(--ink3);margin-top:.5rem">Collection de mes photographies prises lors de mes voyages et explorations</p>
+    </div>
+  </div>
+  
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- Photos will be loaded here dynamically -->
+  </div>
+  
+  <div id="showMoreContainer" style="text-align:center;margin-top:1.5rem;display:none">
+    <button onclick="showMorePhotos()" style="padding:.8rem 1.5rem;background:var(--accent);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;transition:all .3s;font-size:.9rem" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 20px rgba(37,99,235,0.3)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+      Voir plus de photos →
+    </button>
+  </div>
+</div>
+
+<!-- LIGHTBOX MODAL -->
+<div id="lightbox" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:9999;align-items:center;justify-content:center">
+  <button onclick="closeLightbox()" style="position:absolute;top:20px;right:30px;background:none;border:none;color:#fff;font-size:40px;cursor:pointer;z-index:10000;padding:10px;line-height:1">&times;</button>
+  
+  <button onclick="prevPhoto()" style="position:absolute;left:30px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.3);color:#fff;font-size:30px;cursor:pointer;padding:15px 20px;border-radius:8px;backdrop-filter:blur(10px);transition:all .3s;z-index:10000" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">❮</button>
+  
+  <img id="lightboxImg" style="max-width:90%;max-height:90vh;object-fit:contain;border-radius:8px;display:none">
+  <video id="lightboxVideo" controls style="max-width:90%;max-height:90vh;border-radius:8px;display:none"></video>
+  
+  <button onclick="nextPhoto()" style="position:absolute;right:30px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.3);color:#fff;font-size:30px;cursor:pointer;padding:15px 20px;border-radius:8px;backdrop-filter:blur(10px);transition:all .3s;z-index:10000" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">❯</button>
+  
+  <div id="photoCounter" style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:#fff;font-size:1rem;background:rgba(0,0,0,0.5);padding:8px 16px;border-radius:20px;backdrop-filter:blur(10px);z-index:10000"></div>
+</div>
+
+<!-- MAP -->
+<div class="cell c4" id="map">
+  <div class="sec-header" style="margin-bottom:1.5rem">
+    <div class="sec-text">
+      <div class="sec-label">07 — Voyages</div>
+      <h2 class="sec-title" style="font-size:1.2rem">Ma carte</h2>
+      <p style="font-size:.85rem;color:var(--ink3);margin-top:.5rem">🏠 Chez moi à Bandol · 🎓 Études à Sophia Antipolis · 💼 Stage à Lyon · 📍 Voyages en France</p>
+    </div>
+  </div>
+  
+  <div class="map-container">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46052.5!2d5.754186!3d43.136418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c907351cd7f56f%3A0x3e735b19f687c73c!2sBandol%2C%20France!5e1!3m2!1sfr!2sfr!4v1234567890123!5m2!1sfr!2sfr"
+      style="border:0"
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+  
+  <div style="margin-top:1.2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem">
+    <div onclick="showMapLocation('bandol')" style="padding:.8rem 1rem;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:.6rem;cursor:pointer;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <span style="font-size:1.4rem">🏠</span>
+      <div>
+        <div style="font-size:.85rem;font-weight:700;color:var(--accent)">Bandol</div>
+        <div style="font-size:.7rem;color:var(--ink4)">Chez moi</div>
+      </div>
+    </div>
+    <div onclick="showMapLocation('sophia')" style="padding:.8rem 1rem;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:.6rem;cursor:pointer;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <span style="font-size:1.4rem">🎓</span>
+      <div>
+        <div style="font-size:.85rem;font-weight:700;color:#8b5cf6">Sophia Antipolis</div>
+        <div style="font-size:.7rem;color:var(--ink4)">DSTI - Mon école</div>
+      </div>
+    </div>
+    <div onclick="showMapLocation('lyon')" style="padding:.8rem 1rem;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:.6rem;cursor:pointer;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <span style="font-size:1.4rem">💼</span>
+      <div>
+        <div style="font-size:.85rem;font-weight:700;color:#2563eb">Lyon</div>
+        <div style="font-size:.7rem;color:var(--ink4)">REVCOO - Stage</div>
+      </div>
+    </div>
+    <div onclick="showMapLocation('marseille')" style="padding:.8rem 1rem;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:.6rem;cursor:pointer;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <span style="font-size:1.4rem">⭐</span>
+      <div>
+        <div style="font-size:.85rem;font-weight:700">Marseille</div>
+        <div style="font-size:.7rem;color:var(--ink4)">New favorite place</div>
+      </div>
+    </div>
+    <div onclick="showMapLocation('nice')" style="padding:.8rem 1rem;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:.6rem;cursor:pointer;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <span style="font-size:1.4rem">💙</span>
+      <div>
+        <div style="font-size:.85rem;font-weight:700">Nice</div>
+        <div style="font-size:.7rem;color:var(--ink4)">Old favorite place</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="cell contact-cell anim" id="contact">
+  <div class="contact-big">Travaillons <span>ensemble</span></div>
+  <p class="contact-sub">Disponible pour un stage ou CDI · Basé à Bandol, France</p>
+  
+  <form class="contact-form" id="contactForm" action="https://formspree.io/f/mzdyjwvb" method="POST">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="prenom">Prénom *</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+      </div>
+      <div class="form-group">
+        <label for="nom">Nom *</label>
+        <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label for="entreprise">Entreprise *</label>
+        <input type="text" id="entreprise" name="entreprise" placeholder="Nom de votre entreprise" required>
+      </div>
+      <div class="form-group">
+        <label for="telephone">Téléphone *</label>
+        <input type="tel" id="telephone" name="telephone" placeholder="+33 6 12 34 56 78" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="message">Message *</label>
+      <textarea id="message" name="message" placeholder="Parlez-moi de votre projet ou opportunité..." required></textarea>
+    </div>
+    
+    <button type="submit" class="form-submit">Envoyer le message</button>
+    <div class="form-status" id="formStatus"></div>
+  </form>
+  
+  <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+    <p style="font-size:.8rem;color:var(--ink3);margin-bottom:.8rem">Ou contactez-moi directement :</p>
+    <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap">
+      <a href="mailto:harishankarmurugan21@gmail.com" style="color:var(--ink2);font-size:.8rem;transition:color .3s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink2)'">📧 harishankarmurugan21@gmail.com</a>
+      <a href="tel:+33772339801" style="color:var(--ink2);font-size:.8rem;transition:color .3s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink2)'">📱 +33 7 72 33 98 01</a>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<footer>&copy; 2026 Harishankar Murugan · Fait avec ♥ à Bandol</footer>
+
+<script>
+/* THEME TOGGLE */
+function toggleTheme(){
+  var b = document.body;
+  var next = (b.getAttribute('data-theme') === 'light') ? 'dark' : 'light';
+  b.setAttribute('data-theme', next);
+  try { localStorage.setItem('theme', next); } catch(e) {}
+}
+(function(){
+  try { var s = localStorage.getItem('theme'); if (s) document.body.setAttribute('data-theme', s); } catch(e) {}
+})();
+
+/* ROTATING JOB TITLES */
+(function(){
+  var titles = ['Data Analyst', 'Business Analyst', 'Chef de Projet', 'Data Engineer'];
+  var currentIndex = 0;
+  var element = document.getElementById('rotatingTitle');
+  
+  if (!element) return;
+  
+  function rotateTitle() {
+    // Fade out
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(-5px)';
+    
+    setTimeout(function() {
+      // Change text
+      currentIndex = (currentIndex + 1) % titles.length;
+      element.textContent = titles[currentIndex];
+      
+      // Fade in
+      element.style.opacity = '1';
+      element.style.transform = 'translateY(0)';
+    }, 300);
+  }
+  
+  // Initial style
+  element.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+  element.style.display = 'inline-block';
+  
+  // Rotate every 3 seconds
+  setInterval(rotateTitle, 3000);
+})();
+
+/* BUILD EMAIL LINKS (avoids bot scraping) */
+(function(){
+  var links = document.querySelectorAll('[data-email][data-domain]');
+  links.forEach(function(el){
+    var email = el.getAttribute('data-email') + '@' + el.getAttribute('data-domain');
+    el.setAttribute('href', 'mai' + 'lto:' + email);
+    var label = el.querySelector('.email-label');
+    if (label) label.textContent = email;
+  });
+})();
+
+/* SCROLL PROGRESS BAR */
+(function(){
+  var bar = document.querySelector('.scroll-bar');
+  window.addEventListener('scroll', function(){
+    var st = window.pageYOffset || document.documentElement.scrollTop;
+    var sh = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = ((st / sh) * 100) + '%';
+  });
+})();
+
+/* NAV HIDE ON SCROLL DOWN */
+(function(){
+  var nav = document.querySelector('.nav');
+  var lastScroll = 0;
+  window.addEventListener('scroll', function(){
+    var current = window.pageYOffset;
+    if (current > lastScroll && current > 150) nav.classList.add('hidden');
+    else nav.classList.remove('hidden');
+    lastScroll = current;
+  });
+})();
+
+/* COUNTER ANIMATION */
+function animateCounter(el){
+  var target = parseInt(el.getAttribute('data-count'));
+  var suffix = el.getAttribute('data-suffix') || '';
+  var duration = 1800;
+  var start = performance.now();
+  function tick(now){
+    var elapsed = now - start;
+    var progress = Math.min(elapsed / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    var value = Math.floor(eased * target);
+    el.textContent = value + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+    else el.textContent = target + suffix;
+  }
+  requestAnimationFrame(tick);
+}
+
+/* REVEAL + COUNTERS */
+(function(){
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('on');
+        var stat = entry.target.querySelector('.stat-num[data-count]');
+        if (stat && !stat.dataset.done){ stat.dataset.done = '1'; animateCounter(stat); }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.anim').forEach(function(el){ observer.observe(el); });
+})();
+
+/* 3D TILT */
+(function(){
+  if (window.matchMedia('(hover: none)').matches) return;
+  var cards = document.querySelectorAll('.cell:not(.hero-cell):not(.contact-cell):not(.sec-cell):not(.photo-cell):not(.exp-cell)');
+  cards.forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var rect = card.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var cx = rect.width / 2;
+      var cy = rect.height / 2;
+      var rx = (y - cy) / cy * -3;
+      var ry = (x - cx) / cx * 3;
+      card.style.transform = 'perspective(1000px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-4px)';
+    });
+    card.addEventListener('mouseleave', function(){ card.style.transform = ''; });
+  });
+})();
+
+/* SMOOTH ANCHOR SCROLL */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var href = a.getAttribute('href');
+    if (href === '#' || href.length < 2) return;
+    var target = document.querySelector(href);
+    if (target){
+      e.preventDefault();
+      var top = target.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+  });
+});
+
+/* PARALLAX ORBS */
+(function(){
+  var orbs = document.querySelectorAll('.orb');
+  window.addEventListener('scroll', function(){
+    var sc = window.pageYOffset;
+    orbs.forEach(function(orb, i){
+      orb.style.transform = 'translateY(' + (sc * (0.2 + i * 0.1)) + 'px)';
+    });
+  });
+})();
+
+/* CONTACT FORM HANDLER */
+(function(){
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  
+  if (form) {
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      
+      var formData = new FormData(form);
+      var button = form.querySelector('.form-submit');
+      var originalText = button.textContent;
+      
+      // Show loading state
+      button.textContent = 'Envoi en cours...';
+      button.disabled = true;
+      status.style.display = 'none';
+      
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(function(response){
+        if (response.ok) {
+          // Success
+          status.className = 'form-status success';
+          status.textContent = '✓ Message envoyé avec succès ! Je vous répondrai bientôt.';
+          status.style.display = 'block';
+          form.reset();
+        } else {
+          // Error
+          status.className = 'form-status error';
+          status.textContent = '✗ Une erreur est survenue. Veuillez réessayer ou me contacter directement par email.';
+          status.style.display = 'block';
+        }
+      })
+      .catch(function(error){
+        // Network error
+        status.className = 'form-status error';
+        status.textContent = '✗ Erreur de connexion. Vérifiez votre connexion internet et réessayez.';
+        status.style.display = 'block';
+      })
+      .finally(function(){
+        button.textContent = originalText;
+        button.disabled = false;
+      });
+    });
+  }
+})();
+
+/* MAP LOCATION SWITCHER */
+function showMapLocation(location) {
+  var iframe = document.querySelector('.map-container iframe');
+  var mapUrls = {
+    'bandol': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46052.5!2d5.754186!3d43.136418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c907351cd7f56f%3A0x3e735b19f687c73c!2sBandol%2C%20France!5e1!3m2!1sfr!2sfr!4v1234567890123!5m2!1sfr!2sfr',
+    'sophia': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d984!2d7.0749757!3d43.6152175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cc2b217ea0dbc3%3A0x2a9003c14d8964f3!2sDSTI%20School%20of%20Engineering%20%7C%20Campus%20Nice%20Sophia-Antipolis!5e1!3m2!1sfr!2sfr!4v1234567890124!5m2!1sfr!2sfr',
+    'lyon': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d89400!2d4.835659!3d45.764043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ea516ae88797%3A0x408ab2ae4bb21f0!2sLyon!5e1!3m2!1sfr!2sfr!4v1234567890125!5m2!1sfr!2sfr',
+    'marseille': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d92800!2d5.369784!3d43.296482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c9bf27b2e66241%3A0x4008cd2497c69020!2sMarseille!5e1!3m2!1sfr!2sfr!4v1234567890126!5m2!1sfr!2sfr',
+    'nice': 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d92800!2d7.261953!3d43.710173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cdd0106a852d31%3A0x40819a5fd979a70!2sNice!5e1!3m2!1sfr!2sfr!4v1234567890127!5m2!1sfr!2sfr'
+  };
+  
+  if (iframe && mapUrls[location]) {
+    iframe.src = mapUrls[location];
+  }
+}
+
+/* PHOTOGRAPHY GALLERY (WITH VIDEO SUPPORT) */
+var validPhotos = [];
+var currentPhotoIndex = 0;
+var photosShown = 6;
+
+// Initialize gallery on page load - FIXED VERSION
+(function initGallery() {
+  setTimeout(function() {
+    loadGallery();
+  }, 100);
+})();
+
+// Shuffle array randomly
+function shuffleArray(array) {
+  var shuffled = array.slice(); // Make a copy
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = temp;
+  }
+  return shuffled;
+}
+
+function loadGallery() {
+  var grid = document.getElementById('galleryGrid');
+  var showMoreBtn = document.getElementById('showMoreContainer');
+  
+  if (!grid) return;
+  
+  grid.innerHTML = '';
+  validPhotos = []; // Reset
+  
+  // Build list of files to try (photo-1 to photo-30, video-1 to video-30)
+  var filesToTry = [];
+  
+  for (var i = 1; i <= 30; i++) {
+    filesToTry.push({path: 'IMAGES/photo-' + i + '.jpg', isVideo: false, num: i});
+    filesToTry.push({path: 'IMAGES/photo-' + i + '.jpeg', isVideo: false, num: i});
+    filesToTry.push({path: 'IMAGES/photo-' + i + '.png', isVideo: false, num: i});
+    filesToTry.push({path: 'IMAGES/photo-' + i + '.webp', isVideo: false, num: i});
+    filesToTry.push({path: 'IMAGES/video-' + i + '.mp4', isVideo: true, num: i});
+    filesToTry.push({path: 'IMAGES/video-' + i + '.webm', isVideo: true, num: i});
+    filesToTry.push({path: 'IMAGES/video-' + i + '.mov', isVideo: true, num: i});
+  }
+  
+  var loadedCount = 0;
+  var totalChecked = 0;
+  
+  // Try each file
+  filesToTry.forEach(function(mediaObj, index) {
+    if (mediaObj.isVideo) {
+      var video = document.createElement('video');
+      video.onloadedmetadata = function() {
+        addMediaToGrid(mediaObj);
+        loadedCount++;
+      };
+      video.onerror = function() {
+        totalChecked++;
+        checkIfDone();
+      };
+      video.src = mediaObj.path;
+    } else {
+      var img = new Image();
+      img.onload = function() {
+        addMediaToGrid(mediaObj);
+        loadedCount++;
+      };
+      img.onerror = function() {
+        totalChecked++;
+        checkIfDone();
+      };
+      img.src = mediaObj.path;
+    }
+  });
+  
+  function addMediaToGrid(mediaObj) {
+    totalChecked++;
+    
+    // Check if already added (avoid duplicates from different extensions)
+    var alreadyAdded = validPhotos.some(function(p) {
+      return p.num === mediaObj.num && p.isVideo === mediaObj.isVideo;
+    });
+    
+    if (alreadyAdded) {
+      checkIfDone();
+      return;
+    }
+    
+    validPhotos.push(mediaObj);
+    
+    // SHUFFLE validPhotos randomly!
+    var shuffledPhotos = shuffleArray(validPhotos);
+    validPhotos = shuffledPhotos;
+    
+    // Rebuild grid with shuffled order
+    grid.innerHTML = '';
+    
+    // Show first photosShown items from shuffled array
+    for (var i = 0; i < Math.min(photosShown, validPhotos.length); i++) {
+      var item = document.createElement('div');
+      item.className = 'gallery-item';
+      var currentMedia = validPhotos[i];
+      
+      if (currentMedia.isVideo) {
+        var video = document.createElement('video');
+        video.src = currentMedia.path;
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'cover';
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        item.appendChild(video);
+      } else {
+        var img = document.createElement('img');
+        img.src = currentMedia.path;
+        img.alt = 'Photo';
+        item.appendChild(img);
+      }
+      
+      item.onclick = (function(idx) {
+        return function() { openLightbox(idx); };
+      })(i);
+      
+      grid.appendChild(item);
+    }
+    
+    // Update show more button
+    if (validPhotos.length > photosShown) {
+      showMoreBtn.style.display = 'block';
+    }
+    
+    checkIfDone();
+  }
+  
+  function checkIfDone() {
+    if (totalChecked >= filesToTry.length && validPhotos.length === 0) {
+      // No media found, show placeholders
+      for (var i = 0; i < 6; i++) {
+        var item = document.createElement('div');
+        item.className = 'gallery-item';
+        var placeholder = document.createElement('div');
+        placeholder.className = 'gallery-placeholder';
+        placeholder.innerHTML = '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Photo ' + (i + 1) + '</span>';
+        item.appendChild(placeholder);
+        grid.appendChild(item);
+      }
+    }
+  }
+}
+
+function showMorePhotos() {
+  var grid = document.getElementById('galleryGrid');
+  var showMoreBtn = document.getElementById('showMoreContainer');
+  
+  if (!grid) return;
+  
+  // Clear grid and show ALL items
+  grid.innerHTML = '';
+  
+  for (var i = 0; i < validPhotos.length; i++) {
+    var mediaObj = validPhotos[i];
+    var item = document.createElement('div');
+    item.className = 'gallery-item';
+    
+    if (mediaObj.isVideo) {
+      var video = document.createElement('video');
+      video.src = mediaObj.path;
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.objectFit = 'cover';
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      item.appendChild(video);
+    } else {
+      var img = document.createElement('img');
+      img.src = mediaObj.path;
+      img.alt = 'Photo';
+      item.appendChild(img);
+    }
+    
+    item.onclick = (function(idx) {
+      return function() { openLightbox(idx); };
+    })(i);
+    
+    grid.appendChild(item);
+  }
+  
+  // Hide show more button
+  showMoreBtn.style.display = 'none';
+}
+
+function openLightbox(index) {
+  currentPhotoIndex = index;
+  var lightbox = document.getElementById('lightbox');
+  var img = document.getElementById('lightboxImg');
+  var video = document.getElementById('lightboxVideo');
+  var counter = document.getElementById('photoCounter');
+  
+  var mediaObj = validPhotos[index];
+  
+  if (mediaObj.isVideo) {
+    // Show video, hide image
+    img.style.display = 'none';
+    video.style.display = 'block';
+    video.src = mediaObj.path;
+    video.load();
+    
+    // AUTO-PLAY the video immediately!
+    setTimeout(function() {
+      video.play().catch(function(error) {
+        console.log('Video autoplay prevented:', error);
+      });
+    }, 100);
+  } else {
+    // Show image, hide video
+    video.style.display = 'none';
+    img.style.display = 'block';
+    img.src = mediaObj.path;
+  }
+  
+  counter.textContent = (index + 1) + ' / ' + validPhotos.length;
+  lightbox.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  var lightbox = document.getElementById('lightbox');
+  var video = document.getElementById('lightboxVideo');
+  
+  // Pause video if playing
+  if (video.style.display !== 'none') {
+    video.pause();
+  }
+  
+  lightbox.style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+function nextPhoto() {
+  var video = document.getElementById('lightboxVideo');
+  if (video.style.display !== 'none') {
+    video.pause();
+  }
+  currentPhotoIndex = (currentPhotoIndex + 1) % validPhotos.length;
+  openLightbox(currentPhotoIndex);
+}
+
+function prevPhoto() {
+  var video = document.getElementById('lightboxVideo');
+  if (video.style.display !== 'none') {
+    video.pause();
+  }
+  currentPhotoIndex = (currentPhotoIndex - 1 + validPhotos.length) % validPhotos.length;
+  openLightbox(currentPhotoIndex);
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  var lightbox = document.getElementById('lightbox');
+  if (lightbox.style.display === 'flex') {
+    if (e.key === 'ArrowRight') nextPhoto();
+    if (e.key === 'ArrowLeft') prevPhoto();
+    if (e.key === 'Escape') closeLightbox();
+  }
+});
+
+</script>
+
+</body>
+</html>
