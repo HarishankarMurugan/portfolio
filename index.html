@@ -8,23 +8,25 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
---bg:#f4f4f0;--card:#ffffff;--card2:#f9f9f6;--border:#e5e4df;
---ink:#111110;--ink2:#3a3935;--ink3:#6d6a62;--ink4:#a09c93;
---accent:#2563eb;--accent2:#1d4ed8;--accent-bg:rgba(37,99,235,.06);
---accent-glow:rgba(37,99,235,.18);
---radius:20px;
---shadow-sm:0 2px 8px rgba(0,0,0,.04);
---shadow-md:0 8px 30px rgba(0,0,0,.06);
---shadow-lg:0 20px 60px rgba(0,0,0,.08);
+--bg:#eef1f6;--card:#ffffff;--card2:#f5f7fb;--card-hi:#ffffff;--border:#dde3ee;
+--ink:#0f1a2e;--ink1:#0f1a2e;--ink2:#34405a;--ink3:#5b6782;--ink4:#8a94ab;
+--accent:#1f55e0;--accent2:#1743b8;--accent-bg:rgba(31,85,224,.07);
+--accent-glow:rgba(31,85,224,.22);--amber:#b7740f;--amber-bg:rgba(183,116,15,.09);
+--grid-dot:rgba(15,26,46,.07);
+--radius:22px;
+--shadow-sm:0 1px 2px rgba(15,26,46,.05);
+--shadow-md:0 10px 30px rgba(15,26,46,.07);
+--shadow-lg:0 24px 60px rgba(15,26,46,.10);
 }
 [data-theme="dark"]{
---bg:#0a0a09;--card:#16161a;--card2:#1c1c20;--border:#28282e;
---ink:#f0efe9;--ink2:#bab5aa;--ink3:#7f7b72;--ink4:#55524b;
---accent:#60a5fa;--accent2:#3b82f6;--accent-bg:rgba(96,165,250,.08);
---accent-glow:rgba(96,165,250,.25);
---shadow-sm:0 2px 8px rgba(0,0,0,.3);
---shadow-md:0 8px 30px rgba(0,0,0,.4);
---shadow-lg:0 20px 60px rgba(0,0,0,.5);
+--bg:#0b111d;--card:#111a2b;--card2:#162135;--card-hi:#15203a;--border:#22304a;
+--ink:#eef2fb;--ink1:#eef2fb;--ink2:#b9c3d8;--ink3:#8592ad;--ink4:#5e6a85;
+--accent:#79a8ff;--accent2:#5b8ef7;--accent-bg:rgba(121,168,255,.10);
+--accent-glow:rgba(121,168,255,.28);--amber:#f3bd57;--amber-bg:rgba(243,189,87,.10);
+--grid-dot:rgba(185,200,230,.07);
+--shadow-sm:0 1px 2px rgba(0,0,0,.35);
+--shadow-md:0 10px 30px rgba(0,0,0,.35);
+--shadow-lg:0 24px 70px rgba(0,0,0,.5);
 }
 
 html{scroll-behavior:smooth}
@@ -210,7 +212,6 @@ a{color:inherit;text-decoration:none}
 .edu-featured .edu-logo{width:180px;height:120px;border-radius:16px;border:2px solid var(--border);background:#fff;padding:12px}
 [data-theme="dark"] .edu-logo{background:#fff;border-color:#ddd}
 [data-theme="dark"] .edu-featured .edu-logo{background:#fff;border-color:#ddd}
-[data-theme="dark"] .edu-logo{background:#1a1a1a}
 .cell:hover .edu-logo{border-color:var(--accent);transform:rotate(4deg)}
 .edu-logo .logo-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;z-index:1}
 .edu-logo .logo-fallback svg{width:28px;height:28px;stroke:var(--ink4);fill:none;stroke-width:1.5}
@@ -312,13 +313,107 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
   .sec-cell{padding:1rem}
   .exp-cell{padding:1.5rem}
 }
+
+/* ===== REFRESH 2026 ===== */
+body{background:var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+   radial-gradient(900px 520px at 12% -8%,var(--accent-glow),transparent 60%),
+   radial-gradient(700px 480px at 100% 110%,var(--amber-bg),transparent 65%),
+   radial-gradient(circle,var(--grid-dot) 1px,transparent 1.2px) 0 0/22px 22px}
+.scroll-bar{background:linear-gradient(90deg,var(--accent),var(--amber))}
+
+/* nav: glass */
+.nav{background:color-mix(in srgb,var(--card) 72%,transparent);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%)}
+.nav-name{background:none;-webkit-text-fill-color:currentColor;color:var(--ink);font-size:1rem}
+.nav-name::after{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-left:2px}
+.toggle{background:var(--card2)}
+.toggle:focus-visible,.nav-cta:focus-visible,.hb-main:focus-visible,.hb-sec:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* cards */
+.cell{background:linear-gradient(180deg,var(--card-hi),var(--card));box-shadow:var(--shadow-sm)}
+.cell:not(.proj-card)::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),transparent 40%);opacity:0;transition:opacity .4s}
+[data-theme="dark"] .cell:not(.proj-card):not(.sec-cell)::before{opacity:1}
+.cell:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--border))}
+.sec-cell,.sec-cell:hover,.proj-card{box-shadow:none}
+
+/* hero */
+.hero-cell h1{font-size:clamp(2.6rem,5vw,4rem);line-height:.95}
+.hero-cell h1 span{background:none;-webkit-text-fill-color:currentColor;color:var(--accent);animation:none}
+.hero-overline{font-family:'Bricolage Grotesque',sans-serif;text-transform:none;letter-spacing:0;font-size:.78rem;font-weight:600;color:var(--ink2);
+  padding:.35rem .8rem .35rem .6rem;border:1px solid var(--border);border-radius:100px;width:fit-content;background:var(--card2)}
+.hero-overline .dot{background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.4)}
+#rotatingTitle{color:var(--accent);font-weight:700}
+.hero-desc{font-size:1rem}
+
+/* stats: amber = data highlight */
+.stat-num{color:var(--ink)}
+.stat-cell .stat-num::first-letter{color:inherit}
+.stat-cell{border-top:3px solid var(--amber)}
+.stat-label{text-transform:none;letter-spacing:0;font-size:.78rem;color:var(--ink3)}
+
+/* section headers */
+.sec-label{font-family:'Bricolage Grotesque',sans-serif;text-transform:none;letter-spacing:0;font-size:.8rem;font-weight:600;color:var(--amber)}
+.sec-title{font-size:clamp(1.6rem,3vw,2.2rem)}
+
+/* experience */
+.exp-meta{font-family:'Bricolage Grotesque',sans-serif;font-size:.78rem;color:var(--ink3)}
+.exp-list li::before{border-radius:2px;width:6px;height:6px;opacity:.7}
+.xt{background:transparent;border:1px solid color-mix(in srgb,var(--accent) 35%,var(--border))}
+
+/* skills */
+.sk{background:var(--card2)}
+.sk-title{font-size:.9rem}
+
+/* certs */
+.cert-meta,.edu-per{font-family:'Bricolage Grotesque',sans-serif;font-size:.74rem}
+.cert-ip{background:var(--amber-bg);color:var(--amber);animation:none}
+
+/* contact */
+.contact-cell,[data-theme="dark"] .contact-cell{background:linear-gradient(180deg,var(--card-hi),var(--card));color:var(--ink)}
+.contact-cell::after{background:radial-gradient(circle,var(--accent-bg),transparent 70%)}
+[data-theme="dark"] .contact-big,[data-theme="dark"] .contact-sub{color:inherit}
+.contact-big span{background:none;-webkit-text-fill-color:currentColor;color:var(--accent)}
+[data-theme="dark"] .form-group label{color:var(--ink2)}
+[data-theme="dark"] .form-group input,[data-theme="dark"] .form-group textarea{background:var(--card2);border-color:var(--border);color:var(--ink)}
+[data-theme="dark"] .form-group input::placeholder,[data-theme="dark"] .form-group textarea::placeholder{color:var(--ink4)}
+.form-group label{text-transform:none;letter-spacing:0;font-size:.8rem}
+
+
+.sec-cell,.sec-cell:hover{background:transparent;border-color:transparent}
+.sec-cell .sec-title{font-size:clamp(1.8rem,3.4vw,2.5rem)}
+[data-theme="dark"] .logo-box{background:var(--card2)}
+[data-theme="dark"] .hb-main,[data-theme="dark"] .nav-cta,[data-theme="dark"] .form-submit,[data-theme="dark"] .nav-cta:hover,[data-theme="dark"] .hb-main:hover{color:#0b111d}
+[data-theme="dark"] a[href$="REVCOO.pdf"]{color:#0b111d !important}
+
+.proj-badge{align-self:flex-start}
+
+/* ===== CUSTOM CURSOR ===== */
+.cur-dot,.cur-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:100001;border-radius:50%;opacity:0;will-change:transform}
+.cur-dot{width:7px;height:7px;margin:-3.5px 0 0 -3.5px;background:var(--amber)}
+.cur-ring{width:36px;height:36px;margin:-18px 0 0 -18px;border:1.5px solid var(--accent);
+  transition:width .25s ease,height .25s ease,margin .25s ease,background .25s ease,border-color .25s ease,opacity .3s ease}
+html.has-cursor .cur-dot,html.has-cursor .cur-ring{opacity:1}
+html.has-cursor,html.has-cursor *{cursor:none !important}
+html.has-cursor input,html.has-cursor textarea{cursor:text !important}
+html.cur-hover .cur-ring{width:58px;height:58px;margin:-29px 0 0 -29px;background:var(--accent-bg);border-color:var(--amber)}
+html.cur-down .cur-ring{width:28px;height:28px;margin:-14px 0 0 -14px}
+html.cur-text .cur-ring,html.cur-text .cur-dot,html.cur-out .cur-ring,html.cur-out .cur-dot{opacity:0}
+html.cur-media .cur-ring{width:76px;height:76px;margin:-38px 0 0 -38px;background:rgba(255,255,255,.12);border-color:#fff;backdrop-filter:blur(2px)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  .anim{opacity:1;transform:none}
+}
 </style>
 </head>
-<body data-theme="light">
+<body data-theme="dark">
 
 <div class="scroll-bar"></div>
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
+<div class="cur-ring" aria-hidden="true"></div>
+<div class="cur-dot" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
 
 <nav class="nav">
   <div class="nav-name">HM.</div>
@@ -330,10 +425,10 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
   </ul>
   <div class="nav-right">
     <a href="#contact" class="nav-cta">Contact</a>
-    <div class="toggle" onclick="toggleTheme()">
+    <button class="toggle" type="button" onclick="toggleTheme()" aria-label="Changer de thème (clair / sombre)">
       <svg class="ic-m" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="ic-s" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    </div>
+    </button>
   </div>
 </nav>
 
@@ -342,9 +437,9 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
 
 <!-- HERO -->
 <div class="cell hero-cell">
-  <div class="hero-overline"><span class="dot"></span> <span id="rotatingTitle">Data Analyst</span> · Disponible</div>
+  <div class="hero-overline"><span class="dot"></span> <span id="rotatingTitle">Data Analyst</span> · CDI / CDD · Disponible immédiatement</div>
   <h1>Harishankar<br><span>MURUGAN</span></h1>
-  <p class="hero-desc">Expert en Power BI, SQL, Python et Excel. Je transforme des données complexes en insights stratégiques pour un impact business mesurable.</p>
+  <p class="hero-desc">Analyste de données expérimenté, expert en Power BI, SQL, Azure, Python et Excel. Je collabore efficacement avec les équipes pour résoudre des problèmes complexes et fournir des insights pertinents.</p>
   <div class="hero-btns">
     <a class="hb-main" data-email="harishankarmurugan21" data-domain="gmail.com">Me contacter <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     <a href="CV-Harishankar-Murugan.pdf" download class="hb-sec">
@@ -366,7 +461,7 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
 <!-- STATS -->
 <div class="cell stat-cell anim"><div class="stat-num" data-count="3" data-suffix="+">0</div><div class="stat-label">Ans d'exp.</div></div>
 <div class="cell stat-cell anim"><div class="stat-num" data-count="12" data-suffix="%">0</div><div class="stat-label">Hausse ventes</div></div>
-<div class="cell stat-cell anim"><div class="stat-num" data-count="20" data-suffix="%">0</div><div class="stat-label">Croissance CA</div></div>
+<div class="cell stat-cell anim"><div class="stat-num" data-count="20" data-suffix="%">0</div><div class="stat-label">Ventes location</div></div>
 <div class="cell stat-cell anim"><div class="stat-num" data-count="6" data-suffix="+">0</div><div class="stat-label">Certifications</div></div>
 
 <!-- EXPERIENCE HEADER -->
@@ -397,10 +492,10 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
         <div class="co blue">REVCOO</div>
       </div>
     </div>
-    <div class="exp-meta">Sep 2025 — Mar 2026 · Lyon, Auvergne-Rhône-Alpes, France · Hybride</div>
+    <div class="exp-meta">Sep 2025 — Mar 2026 · Lyon, Auvergne-Rhône-Alpes, France · Télétravail</div>
     <ul class="exp-list">
       <li>Analyse et structuration de données complexes issues de sources multiples (PDF, Excel, Word) pour créer un référentiel harmonisé des émetteurs de CO₂, projets d'offtake et infrastructures — garantissant cohérence, fiabilité et comparabilité inter-régionale.</li>
-      <li>Nettoyage, transformation et standardisation de sources de données variées en jeux de données structurés et prêts à l'analyse à l'aide de Python et Excel, améliorant la qualité et la cohérence des données.</li>
+      <li>Nettoyage, transformation et standardisation de sources de données variées en jeux de données structurés et prêts à l'analyse à l'aide de Python et Excel, avec mise en place de flux ETL sous SSIS pour l'alimentation et la centralisation des données dans SQL Server — améliorant la qualité, la cohérence et la comparabilité inter-régionale des données.</li>
       <li>Intégration de datasets de coûts d'électricité (Europe &amp; Amérique du Nord) dans un modèle de coûts du captage carbone — amélioration de la précision des estimations CAPEX, O&amp;M et énergie pour une évaluation économique robuste.</li>
       <li>Développement d'un tableau de bord Power BI interactif intégré à ArcGIS, offrant une visualisation géospatiale avancée et une modélisation complète de la chaîne de valeur du CO₂ — de la capture au transport multimodal (route &amp; rail) basé sur des distances réelles.</li>
       <li>Élaboration de modèles de coûts détaillés sous Excel, fournissant des estimations précises pour la capture de carbone et le transport multimodal (OPEX, CAPEX, maintenance, énergie, logistique).</li>
@@ -409,9 +504,9 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
     </ul>
     
     <!-- Manager Appreciation -->
-    <div style="margin-top:1.5rem;margin-bottom:1rem;padding:1.2rem;background:linear-gradient(135deg,rgba(37,99,235,0.05),rgba(37,99,235,0.02));border-left:3px solid #2563eb;border-radius:8px;clear:both;max-width:100%;box-sizing:border-box;overflow:hidden">
+    <div style="margin-top:1.5rem;margin-bottom:1rem;padding:1.2rem;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:8px;clear:both;max-width:100%;box-sizing:border-box;overflow:hidden">
       <div style="display:flex;align-items:start;gap:.8rem">
-        <svg style="width:24px;height:24px;flex-shrink:0;margin-top:.2rem;color:#2563eb" viewBox="0 0 24 24" fill="currentColor">
+        <svg style="width:24px;height:24px;flex-shrink:0;margin-top:.2rem;color:var(--accent)" viewBox="0 0 24 24" fill="currentColor">
           <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
         </svg>
         <div style="flex:1">
@@ -434,7 +529,7 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
       </div>
     </div>
     
-    <div class="exp-tags"><span class="xt">Power BI</span><span class="xt">Python</span><span class="xt">ArcGIS</span><span class="xt">Excel</span><span class="xt">Modélisation</span><span class="xt">Analyse géospatiale</span></div>
+    <div class="exp-tags"><span class="xt">Power BI</span><span class="xt">Python</span><span class="xt">SSIS</span><span class="xt">SQL Server</span><span class="xt">ETL</span><span class="xt">ArcGIS</span><span class="xt">Excel</span><span class="xt">Modélisation de coûts</span><span class="xt">Analyse géospatiale</span></div>
   </div>
 </div>
 
@@ -447,7 +542,7 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
   <div class="exp-content">
     <div class="exp-head">
       <div class="exp-info">
-        <h3>Data Processing Analyst — Spécialiste Portefeuille Opérations</h3>
+        <h3>Data Processing Analyst — Operation Portfolio Specialist</h3>
         <div class="co teal">NielsenIQ (NIQ)</div>
       </div>
     </div>
@@ -456,12 +551,12 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
       <li>Analyse de la performance des gammes de produits pour des leaders FMCG — L'Oréal Paris (catégories Texture Longue Durée &amp; Soins Capillaires) et Reckitt (portefeuille Produits d'Entretien).</li>
       <li>Analyses multidimensionnelles par marché, produit, période et indicateurs factuels (KPI) afin de générer des insights actionnables et renforcer les partenariats clients.</li>
       <li>Impact mesurable : amélioration des résultats d'analyse des ventes de +12 % chez L'Oréal et +10 % chez Reckitt grâce à des recommandations data-driven orientées performance.</li>
-      <li>Collaboration avec des clients majeurs pour soutenir les stratégies marketing et commerciales via des analyses approfondies et des rapports stratégiques.</li>
-      <li>Utilisation de SQL et Excel pour l'extraction et l'analyse des données, Power BI/Excel pour des tableaux de bord clairs et percutants.</li>
+      <li>Collaboration avec des clients majeurs tels que L'Oréal et Reckitt Benckiser, avec des analyses approfondies de la performance des gammes de produits et des activités e-commerce, afin de soutenir les stratégies marketing et commerciales.</li>
+      <li>Amélioration des ventes de 10 à 12 % grâce à des analyses data-driven, en exploitant Python, SQL, Excel et Power BI pour analyser les données e-commerce, identifier les tendances clés et formuler des recommandations stratégiques.</li>
       <li>Gestion des tickets et des projets via Dynamics 365 — collaboration transverse pour une résolution rapide des problématiques.</li>
       <li>Production de rapports clairs et synthétiques facilitant la prise de décision au niveau management et client.</li>
     </ul>
-    <div class="exp-tags"><span class="xt">SQL</span><span class="xt">Power BI</span><span class="xt">Excel</span><span class="xt">Dynamics 365</span><span class="xt">FMCG Analytics</span><span class="xt">KPI</span></div>
+    <div class="exp-tags"><span class="xt">Python</span><span class="xt">SQL</span><span class="xt">Power BI</span><span class="xt">Excel</span><span class="xt">Dynamics 365</span><span class="xt">E-commerce</span><span class="xt">FMCG Analytics</span><span class="xt">KPI</span></div>
   </div>
 </div>
 
@@ -480,13 +575,14 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
     </div>
     <div class="exp-meta">Fév 2022 — Sep 2023 · Sur site · CDI · 1 an 8 mois</div>
     <ul class="exp-list">
-      <li>Utilisation de SSIS pour l'intégration et la gestion des données, ainsi que d'Excel et Power BI pour l'analyse, la visualisation et le suivi des indicateurs opérationnels.</li>
-      <li>Exploitation d'Azure Data Factory pour les flux de données et d'Azure Data Lake pour le stockage cloud, contribuant à améliorer l'efficacité opérationnelle globale.</li>
+      <li>Utilisation de SSIS et Apache Airflow pour l'intégration et l'orchestration des flux de données, avec PySpark pour le traitement et la transformation des données à grande échelle.</li>
+      <li>Exploitation d'Excel et Power BI pour l'analyse, la visualisation et le suivi des indicateurs opérationnels.</li>
+      <li>Exploitation d'Azure Data Factory pour les pipelines et d'Azure Data Lake pour le stockage cloud, contribuant à améliorer l'efficacité opérationnelle globale.</li>
       <li>Augmentation des ventes de location de 20 % grâce à une meilleure gestion du parc matériel et une disponibilité optimisée.</li>
       <li>Gestion de la facturation, du suivi des stocks sur Excel et de la coordination avec les clients afin d'améliorer l'efficacité opérationnelle, la précision des données et la qualité des relations clients.</li>
       <li>Mise en place de processus de suivi de stock améliorés pour une meilleure traçabilité et une réduction des écarts d'inventaire.</li>
     </ul>
-    <div class="exp-tags"><span class="xt">SSIS</span><span class="xt">Power BI</span><span class="xt">Excel</span><span class="xt">Azure Data Factory</span><span class="xt">Azure Data Lake</span><span class="xt">Gestion de stocks</span></div>
+    <div class="exp-tags"><span class="xt">SSIS</span><span class="xt">Apache Airflow</span><span class="xt">PySpark</span><span class="xt">Power BI</span><span class="xt">Excel</span><span class="xt">Azure Data Factory</span><span class="xt">Azure Data Lake</span><span class="xt">Gestion de stocks</span></div>
   </div>
 </div>
 
@@ -509,16 +605,36 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
   <div class="sk-wrap"><span class="sk">Power BI</span><span class="sk">Tableau</span><span class="sk">QlikSense</span><span class="sk">Matplotlib</span><span class="sk">Seaborn</span><span class="sk">Plotly</span></div>
 </div>
 <div class="cell anim">
-  <div class="sk-title"><span class="skd" style="background:#0d9488"></span> BDD &amp; ETL</div>
-  <div class="sk-wrap"><span class="sk">MySQL</span><span class="sk">SQL Server</span><span class="sk">Fabric</span><span class="sk">Azure</span><span class="sk">Neo4j</span><span class="sk">Talend</span><span class="sk">SSIS</span><span class="sk">CI/CD</span></div>
+  <div class="sk-title"><span class="skd" style="background:#0d9488"></span> Bases de données</div>
+  <div class="sk-wrap"><span class="sk">SQL Server</span><span class="sk">SSMS</span><span class="sk">PostgreSQL</span><span class="sk">MongoDB</span><span class="sk">Neo4j</span><span class="sk">Snowflake</span></div>
+</div>
+<div class="cell c2 anim">
+  <div class="sk-title"><span class="skd" style="background:#0891b2"></span> Data Engineering &amp; Cloud</div>
+  <div class="sk-wrap"><span class="sk">Microsoft Fabric</span><span class="sk">Azure Data Factory</span><span class="sk">Azure Data Lake</span><span class="sk">Databricks</span><span class="sk">Talend ETL</span><span class="sk">SSIS</span><span class="sk">Apache Airflow</span><span class="sk">PySpark</span><span class="sk">DBT</span><span class="sk">Docker</span><span class="sk">CI/CD</span><span class="sk">Google Cloud Platform</span></div>
 </div>
 <div class="cell anim">
   <div class="sk-title"><span class="skd" style="background:#16a34a"></span> Programmation</div>
-  <div class="sk-wrap"><span class="sk">Python</span><span class="sk">R</span><span class="sk">SQL</span><span class="sk">Shell (bash)</span><span class="sk">XGBoost</span><span class="sk">PyTorch</span><span class="sk">Statsmodels</span></div>
+  <div class="sk-wrap"><span class="sk">Python</span><span class="sk">R</span><span class="sk">Java</span><span class="sk">SQL</span><span class="sk">Shell (bash)</span><span class="sk">UML</span><span class="sk">XGBoost</span><span class="sk">PyTorch</span><span class="sk">Statsmodels</span></div>
+</div>
+<div class="cell c2 anim">
+  <div class="sk-title"><span class="skd" style="background:#8b5cf6"></span> Outils</div>
+  <div class="sk-wrap"><span class="sk">Excel (Avancé)</span><span class="sk">Power Platform</span><span class="sk">Jupyter</span><span class="sk">VS Code</span><span class="sk">PyCharm</span><span class="sk">Dynamics 365 (CRM)</span><span class="sk">Git</span></div>
 </div>
 <div class="cell anim">
-  <div class="sk-title"><span class="skd" style="background:#8b5cf6"></span> Outils &amp; Langues</div>
-  <div class="sk-wrap"><span class="sk">Excel (Avancé)</span><span class="sk">Power Platform</span><span class="sk">Jupyter</span><span class="sk">VS Code</span><span class="sk">PyCharm</span><span class="sk">Git</span><span class="sk">Dynamics 365</span><span class="sk">MS Project</span><span class="sk">JIRA</span><span class="sk">Confluence</span><span class="sk">Trello</span><span class="sk">Linux/Unix</span><span class="sk">Anglais</span><span class="sk">Français</span></div>
+  <div class="sk-title"><span class="skd" style="background:#f59e0b"></span> Intégration &amp; échanges</div>
+  <div class="sk-wrap"><span class="sk">API REST</span><span class="sk">JSON</span><span class="sk">XML</span></div>
+</div>
+<div class="cell c2 anim">
+  <div class="sk-title"><span class="skd" style="background:#e11d48"></span> Gestion de projets</div>
+  <div class="sk-wrap"><span class="sk">Agile</span><span class="sk">Scrum</span><span class="sk">JIRA</span><span class="sk">MS Project</span><span class="sk">Confluence</span><span class="sk">Trello</span></div>
+</div>
+<div class="cell anim">
+  <div class="sk-title"><span class="skd" style="background:#64748b"></span> Systèmes</div>
+  <div class="sk-wrap"><span class="sk">Linux / Unix</span></div>
+</div>
+<div class="cell anim">
+  <div class="sk-title"><span class="skd" style="background:#db2777"></span> Langues</div>
+  <div class="sk-wrap"><span class="sk">Français</span><span class="sk">Anglais</span></div>
 </div>
 
 <!-- PROJECTS HEADER -->
@@ -573,7 +689,7 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
 </div>
 
 <!-- CERTIFICATIONS -->
-<div class="cell c2 anim">
+<div class="cell c3 anim">
   <div class="sec-header" style="margin-bottom:1rem">
     <div class="sec-img">
       <div class="sec-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg><span>certs</span></div>
@@ -615,18 +731,18 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
         <img src="logo-dsti.png" alt="DSTI" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
       </div>
       <div style="flex:1">
-        <div class="edu-deg">Master en Data Analytics & Intelligence Artificielle</div>
+        <div class="edu-deg">Master en Data Analytics</div>
         <div class="edu-sch">DSTI — Data ScienceTech Institute (School of Engineering)</div>
       </div>
     </div>
     <div class="edu-per">Oct 2024 — Sep 2026 · Sophia-Antipolis, Côte d'Azur, France</div>
-    <div class="edu-info">Formation d'excellence en science des données et intelligence artificielle. Programme intensif couvrant l'analyse de données avancée, le machine learning, le deep learning, et la visualisation de données. Maîtrise approfondie de Power BI, Tableau, Python (Pandas, NumPy, Scikit-learn, TensorFlow), R, SQL, et méthodes Agile pour la gestion de projets data. Projets pratiques sur des cas réels d'entreprise incluant la modélisation prédictive, l'optimisation et le traitement du langage naturel. Accent mis sur l'application industrielle et le déploiement de solutions data en environnement professionnel.</div>
+    <div class="edu-info"><strong>Cours suivis :</strong> Excel avancé pour l'analyse de données, gestion de projets informatiques (approches traditionnelles et agiles), rapports et visualisation avec Power BI.<br><br>Formation d'excellence en science des données et intelligence artificielle. Programme intensif couvrant l'analyse de données avancée, le machine learning, le deep learning, et la visualisation de données. Maîtrise approfondie de Power BI, Tableau, Python (Pandas, NumPy, Scikit-learn, TensorFlow), R, SQL, et méthodes Agile pour la gestion de projets data. Projets pratiques sur des cas réels d'entreprise incluant la modélisation prédictive, l'optimisation et le traitement du langage naturel. Accent mis sur l'application industrielle et le déploiement de solutions data en environnement professionnel.</div>
   </div>
 
   <!-- Bachelor - Minimal -->
   <div class="edu-block">
     <div style="margin-bottom:.6rem">
-      <div class="edu-deg">Bachelor en Technologies de l'Information</div>
+      <div class="edu-deg">Diplôme Bac+4 en Technologies de l'Information</div>
       <div class="edu-sch">Velammal Institute of Technology, Anna University · Chennai, Inde</div>
     </div>
     <div class="edu-per">Sep 2018 — Juil. 2022</div>
@@ -675,7 +791,7 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
     <div class="sec-text">
       <div class="sec-label">07 — Voyages</div>
       <h2 class="sec-title" style="font-size:1.2rem">Ma carte</h2>
-      <p style="font-size:.85rem;color:var(--ink3);margin-top:.5rem">🏠 Chez moi à Bandol · 🎓 Études à Sophia Antipolis · 💼 Stage à Lyon · 📍 Voyages en France</p>
+      <p style="font-size:.85rem;color:var(--ink3);margin-top:.5rem">🏠 Chez moi à Bandol · 🎓 Études à Sophia Antipolis · 💼 REVCOO à Lyon · 📍 Voyages en France</p>
     </div>
   </div>
   
@@ -708,7 +824,7 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
       <span style="font-size:1.4rem">💼</span>
       <div>
         <div style="font-size:.85rem;font-weight:700;color:#2563eb">Lyon</div>
-        <div style="font-size:.7rem;color:var(--ink4)">REVCOO - Stage</div>
+        <div style="font-size:.7rem;color:var(--ink4)">REVCOO · Power BI &amp; Data Analyst</div>
       </div>
     </div>
     <div onclick="showMapLocation('marseille')" style="padding:.8rem 1rem;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:.6rem;cursor:pointer;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
@@ -731,7 +847,7 @@ footer{text-align:center;padding:2rem;color:var(--ink4);font-size:.7rem;position
 <!-- CONTACT -->
 <div class="cell contact-cell anim" id="contact">
   <div class="contact-big">Travaillons <span>ensemble</span></div>
-  <p class="contact-sub">Disponible pour un stage ou CDI · Basé à Bandol, France</p>
+  <p class="contact-sub">À la recherche d'un CDI ou CDD · Disponible immédiatement · Basé à Bandol, France</p>
   
   <form class="contact-form" id="contactForm" action="https://formspree.io/f/mzdyjwvb" method="POST">
     <div class="form-row">
@@ -790,15 +906,15 @@ function toggleTheme(){
   var b = document.body;
   var next = (b.getAttribute('data-theme') === 'light') ? 'dark' : 'light';
   b.setAttribute('data-theme', next);
-  try { localStorage.setItem('theme', next); } catch(e) {}
+  try { localStorage.setItem('theme-v2', next); } catch(e) {}
 }
 (function(){
-  try { var s = localStorage.getItem('theme'); if (s) document.body.setAttribute('data-theme', s); } catch(e) {}
+  try { var s = localStorage.getItem('theme-v2'); document.body.setAttribute('data-theme', s === 'light' ? 'light' : 'dark'); } catch(e) {}
 })();
 
 /* ROTATING JOB TITLES */
 (function(){
-  var titles = ['Data Analyst', 'Business Analyst', 'Chef de Projet', 'Data Engineer'];
+  var titles = ['Data Analyst', 'Power BI Analyst', 'Analyste de données', 'Data Engineer'];
   var currentIndex = 0;
   var element = document.getElementById('rotatingTitle');
   
@@ -927,15 +1043,33 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
 });
 
-/* PARALLAX ORBS */
+
+/* CUSTOM CURSOR */
 (function(){
-  var orbs = document.querySelectorAll('.orb');
-  window.addEventListener('scroll', function(){
-    var sc = window.pageYOffset;
-    orbs.forEach(function(orb, i){
-      orb.style.transform = 'translateY(' + (sc * (0.2 + i * 0.1)) + 'px)';
-    });
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var root = document.documentElement;
+  var dot = document.querySelector('.cur-dot'), ring = document.querySelector('.cur-ring');
+  var mx = -100, my = -100, rx = -100, ry = -100, started = false;
+  var hoverSel = 'a, button, .sk, .xt, .toggle, .cert-item, [onclick], .gallery-item, .proj-link';
+  window.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+    if (!started){ started = true; rx = mx; ry = my; root.classList.add('has-cursor'); }
+    root.classList.remove('cur-out');
+    var t = e.target;
+    root.classList.toggle('cur-text', !!t.closest('input, textarea'));
+    root.classList.toggle('cur-media', !!t.closest('.gallery-item, .photo-cell'));
+    root.classList.toggle('cur-hover', !!t.closest(hoverSel) && !t.closest('.gallery-item'));
   });
+  document.addEventListener('mouseleave', function(){ root.classList.add('cur-out'); });
+  window.addEventListener('mousedown', function(){ root.classList.add('cur-down'); });
+  window.addEventListener('mouseup', function(){ root.classList.remove('cur-down'); });
+  (function loop(){
+    rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+    ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+    requestAnimationFrame(loop);
+  })();
 })();
 
 /* CONTACT FORM HANDLER */
