@@ -389,21 +389,41 @@ body{background:var(--bg)}
 
 .proj-badge{align-self:flex-start}
 
-/* ===== CUSTOM CURSOR ===== */
-.cur-dot,.cur-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:100001;border-radius:50%;opacity:0;will-change:transform}
-.cur-dot{width:7px;height:7px;margin:-3.5px 0 0 -3.5px;background:var(--amber)}
-.cur-ring{width:36px;height:36px;margin:-18px 0 0 -18px;border:1.5px solid var(--accent);
-  transition:width .25s ease,height .25s ease,margin .25s ease,background .25s ease,border-color .25s ease,opacity .3s ease}
-html.has-cursor .cur-dot,html.has-cursor .cur-ring{opacity:1}
+/* ===== CUSTOM CURSOR: data crosshair + snapping frame ===== */
+.cur-x,.cur-frame,.cur-tag,.cur-ping{position:fixed;top:0;left:0;pointer-events:none;z-index:100001;opacity:0;will-change:transform}
+/* crosshair at the exact pointer */
+.cur-x{width:18px;height:18px;margin:-9px 0 0 -9px;transition:opacity .2s,transform 0s}
+.cur-x::before,.cur-x::after{content:'';position:absolute;background:var(--amber);border-radius:1px}
+.cur-x::before{left:8px;top:0;width:2px;height:18px}
+.cur-x::after{top:8px;left:0;height:2px;width:18px}
+.cur-x i{position:absolute;left:6px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--bg);border:2px solid var(--amber);box-sizing:border-box}
+/* four corner brackets that follow, then lock onto targets */
+.cur-frame{width:40px;height:40px;transition:opacity .25s}
+.cur-frame b{position:absolute;width:10px;height:10px;border:0 solid var(--accent);transition:border-color .25s,width .25s,height .25s}
+.cur-frame b:nth-child(1){top:0;left:0;border-top-width:2px;border-left-width:2px;border-top-left-radius:4px}
+.cur-frame b:nth-child(2){top:0;right:0;border-top-width:2px;border-right-width:2px;border-top-right-radius:4px}
+.cur-frame b:nth-child(3){bottom:0;left:0;border-bottom-width:2px;border-left-width:2px;border-bottom-left-radius:4px}
+.cur-frame b:nth-child(4){bottom:0;right:0;border-bottom-width:2px;border-right-width:2px;border-bottom-right-radius:4px}
+html.cur-lock .cur-frame b{border-color:var(--amber);width:14px;height:14px}
+html.cur-lock .cur-x{opacity:.0 !important}
+/* contextual label */
+.cur-tag{padding:.28rem .6rem;border-radius:7px;font:600 .68rem/1 'Bricolage Grotesque',sans-serif;white-space:nowrap;
+  background:var(--amber);color:#0b111d;box-shadow:0 6px 18px rgba(0,0,0,.25);transform-origin:0 0;transition:opacity .2s}
+/* click pulse */
+.cur-ping{width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:2px solid var(--amber)}
+.cur-ping.go{animation:curPing .45s ease-out}
+@keyframes curPing{from{opacity:.9;scale:.3}to{opacity:0;scale:1.4}}
+html.has-cursor .cur-x,html.has-cursor .cur-frame{opacity:1}
+html.has-cursor.cur-tagon .cur-tag{opacity:1}
 html.has-cursor,html.has-cursor *{cursor:none !important}
-html.has-cursor input,html.has-cursor textarea{cursor:text !important}
-html.cur-hover .cur-ring{width:58px;height:58px;margin:-29px 0 0 -29px;background:var(--accent-bg);border-color:var(--amber)}
-html.cur-down .cur-ring{width:28px;height:28px;margin:-14px 0 0 -14px}
-html.cur-text .cur-ring,html.cur-text .cur-dot,html.cur-out .cur-ring,html.cur-out .cur-dot{opacity:0}
-html.cur-media .cur-ring{width:76px;height:76px;margin:-38px 0 0 -38px;background:rgba(255,255,255,.12);border-color:#fff;backdrop-filter:blur(2px)}
+html.has-cursor input,html.has-cursor textarea,html.has-cursor select{cursor:text !important}
+html.cur-text .cur-x,html.cur-text .cur-frame,html.cur-text .cur-tag,
+html.cur-out .cur-x,html.cur-out .cur-frame,html.cur-out .cur-tag{opacity:0 !important}
+html.cur-media .cur-frame b{border-color:#fff}
+html.cur-down .cur-frame{scale:.94}
 
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  *:not(.cur-ping),*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
   .anim{opacity:1;transform:none}
 }
 </style>
@@ -411,8 +431,86 @@ html.cur-media .cur-ring{width:76px;height:76px;margin:-38px 0 0 -38px;backgroun
 <body data-theme="dark">
 
 <div class="scroll-bar"></div>
-<div class="cur-ring" aria-hidden="true"></div>
-<div class="cur-dot" aria-hidden="true"></div>
+<div class="cur-frame" aria-hidden="true"><b></b><b></b><b></b><b></b></div>
+<div class="cur-x" aria-hidden="true"><i></i></div>
+<div class="cur-tag" aria-hidden="true"></div>
+<div class="cur-ping" aria-hidden="true"></div>
+<script>
+/* CUSTOM CURSOR — crosshair + corner brackets that lock onto clickable elements */
+(function(){
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+  var root = document.documentElement;
+  var cx = document.querySelector('.cur-x'), frame = document.querySelector('.cur-frame'),
+      tag = document.querySelector('.cur-tag'), ping = document.querySelector('.cur-ping');
+  var mx = -200, my = -200, started = false, target = null;
+  var F = {x:-200, y:-200, w:40, h:40};   // current frame (animated)
+  var LOCK = 'a, button, .toggle, .sk, .xt, .cert-item, .gallery-item, .photo-cell, [onclick]';
+
+  function labelFor(el){
+    if (el.closest('.gallery-item')) return 'Agrandir';
+    if (el.closest('.photo-cell')) return 'Bonjour 👋';
+    if (el.closest('.toggle')) return 'Thème';
+    if (el.closest('.sk, .xt')) return el.closest('.sk, .xt').textContent.trim();
+    if (el.closest('.cert-item')) return 'Certification';
+    var a = el.closest('a');
+    if (a){
+      var h = a.getAttribute('href') || '';
+      if (h.indexOf('github') > -1) return 'GitHub ↗';
+      if (/\.pdf$/i.test(h)) return 'PDF';
+      if (h.indexOf('mailto') === 0 || a.hasAttribute('data-email')) return 'Email';
+      if (h.indexOf('tel:') === 0) return 'Appeler';
+      if (h.charAt(0) === '#') return 'Aller';
+      return 'Ouvrir';
+    }
+    if (el.closest('button')) return 'Cliquer';
+    return '';
+  }
+
+  window.addEventListener('pointermove', function(e){
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    mx = e.clientX; my = e.clientY;
+    cx.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+    if (!started){ started = true; F.x = mx - 20; F.y = my - 20; root.classList.add('has-cursor'); }
+    root.classList.remove('cur-out');
+    var t = e.target;
+    root.classList.toggle('cur-text', !!t.closest('input, textarea, select'));
+    root.classList.toggle('cur-media', !!t.closest('.gallery-item, .photo-cell'));
+    target = t.closest(LOCK);
+    if (target && target.closest('#lightbox')) target = null;
+    root.classList.toggle('cur-lock', !!target);
+    var txt = target ? labelFor(t) : '';
+    if (txt){ if (tag.textContent !== txt) tag.textContent = txt; root.classList.add('cur-tagon'); }
+    else root.classList.remove('cur-tagon');
+    tag.style.transform = 'translate(' + (mx + 16) + 'px,' + (my + 18) + 'px)';
+  }, {passive:true});
+
+  document.addEventListener('mouseleave', function(){ root.classList.add('cur-out'); });
+  window.addEventListener('mousedown', function(){
+    root.classList.add('cur-down');
+    ping.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+    ping.classList.remove('go'); void ping.offsetWidth; ping.classList.add('go');
+  });
+  window.addEventListener('mouseup', function(){ root.classList.remove('cur-down'); });
+
+  (function loop(){
+    var g;
+    if (target){
+      var r = target.getBoundingClientRect(), pad = 6;
+      g = {x:r.left - pad, y:r.top - pad, w:r.width + pad*2, h:r.height + pad*2};
+    } else {
+      g = {x:mx - 20, y:my - 20, w:40, h:40};
+    }
+    var k = reduce ? 1 : (target ? 0.25 : 0.2);
+    F.x += (g.x - F.x) * k; F.y += (g.y - F.y) * k;
+    F.w += (g.w - F.w) * k; F.h += (g.h - F.h) * k;
+    frame.style.transform = 'translate(' + F.x + 'px,' + F.y + 'px)';
+    frame.style.width = F.w + 'px'; frame.style.height = F.h + 'px';
+    requestAnimationFrame(loop);
+  })();
+})();
+
+</script>
 <div class="bg-grid" aria-hidden="true"></div>
 
 <nav class="nav">
@@ -1043,34 +1141,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
 });
 
-
-/* CUSTOM CURSOR */
-(function(){
-  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var root = document.documentElement;
-  var dot = document.querySelector('.cur-dot'), ring = document.querySelector('.cur-ring');
-  var mx = -100, my = -100, rx = -100, ry = -100, started = false;
-  var hoverSel = 'a, button, .sk, .xt, .toggle, .cert-item, [onclick], .gallery-item, .proj-link';
-  window.addEventListener('mousemove', function(e){
-    mx = e.clientX; my = e.clientY;
-    dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
-    if (!started){ started = true; rx = mx; ry = my; root.classList.add('has-cursor'); }
-    root.classList.remove('cur-out');
-    var t = e.target;
-    root.classList.toggle('cur-text', !!t.closest('input, textarea'));
-    root.classList.toggle('cur-media', !!t.closest('.gallery-item, .photo-cell'));
-    root.classList.toggle('cur-hover', !!t.closest(hoverSel) && !t.closest('.gallery-item'));
-  });
-  document.addEventListener('mouseleave', function(){ root.classList.add('cur-out'); });
-  window.addEventListener('mousedown', function(){ root.classList.add('cur-down'); });
-  window.addEventListener('mouseup', function(){ root.classList.remove('cur-down'); });
-  (function loop(){
-    rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
-    ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
-    requestAnimationFrame(loop);
-  })();
-})();
 
 /* CONTACT FORM HANDLER */
 (function(){
