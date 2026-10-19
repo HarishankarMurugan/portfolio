@@ -167,9 +167,9 @@ html.no-filter .photo .frame.duo img{filter:none}
 @keyframes spinwob{50%{transform:rotate(4deg) scale(1.04)}}
 
 /* ---------- PHOTO FILTER : black & orange halftone duotone ---------- */
-.duo{isolation:isolate;background:var(--orange)}
-.duo img,.duo video{filter:grayscale(1) contrast(1.35) brightness(1.08);mix-blend-mode:multiply}
-.duo::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:multiply;opacity:.55;
+.duo{isolation:isolate;background:color-mix(in srgb,var(--orange) 72%,#F2EEE3)}
+.duo img,.duo video{filter:grayscale(1) contrast(1.28) brightness(1.1);mix-blend-mode:multiply}
+.duo::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:multiply;opacity:.42;
   background:radial-gradient(circle at center,#0E0E0E 0 1.1px,transparent 1.5px) 0 0/5px 5px}
 html.no-filter .duo{background:#0E0E0E}
 html.no-filter .duo img,html.no-filter .duo video{filter:none;mix-blend-mode:normal}
@@ -1052,9 +1052,6 @@ function initMap(){
     [43.3, 8.6, "Mer Ligure", 6, "sea", 10],
     [44.6, 8.3, "Italie", 5, "country", 9],
     [46.75, 7.3, "Suisse", 5, "country", 9],
-    [44.05, 6.35, "Provence-Alpes-Côte d'Azur", 6, "region", 8],
-    [43.85, 2.35, "Occitanie", 6, "region", 8],
-    [45.55, 5.0, "Auvergne-Rhône-Alpes", 6, "region", 8],
     [43.6108, 3.8767, "Montpellier", 6, "city big"],
     [45.1885, 5.7245, "Grenoble", 6, "city big"],
     [43.1242, 5.928, "Toulon", 8, "city big"],
