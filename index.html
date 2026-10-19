@@ -318,9 +318,52 @@ dialog.lightbox::backdrop{background:transparent}
 .place .emo{font-size:1.3rem}
 .place strong{display:block;font-family:var(--display);font-weight:400;font-size:1.35rem;text-transform:uppercase;line-height:1.05}
 .place small{display:block;font-family:var(--mono);font-size:.72rem;color:var(--ink3)}
-.map-frame{position:relative;min-height:460px;overflow:hidden;border:2px solid var(--line);box-shadow:var(--hard-lg);background:var(--card2)}
-.map-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(1) contrast(1.15)}
-html.no-filter .map-frame iframe{filter:none}
+.map-frame{position:relative;min-height:500px;overflow:hidden;border:2px solid var(--line);box-shadow:var(--hard-lg);background:#1b1f23}
+.leafmap{position:absolute;inset:0;z-index:0;background:#1b1f23;font-family:var(--mono)}
+.leafmap.leaflet-container{background:#1b1f23;font-family:var(--mono)}
+.leafmap .tiles-base{filter:brightness(1.7) contrast(1.05) saturate(.35) sepia(.2) hue-rotate(170deg)}
+.leafmap .tiles-labels{opacity:.7}
+.leafmap.fallback iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(1) invert(.92) contrast(.9) brightness(.9)}
+.map-vignette{position:absolute;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 140px rgba(0,0,0,.7);
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
+/* blips */
+.blip-wrap{background:none;border:0}
+.blip{position:relative;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#15181b;border:2px solid #F2EEE3;box-shadow:0 2px 8px rgba(0,0,0,.6);transition:transform .2s var(--ease)}
+.blip svg{width:17px;height:17px;fill:#F2EEE3}
+.blip-wrap:hover .blip{transform:scale(1.15)}
+.blip-wrap.active{z-index:1000 !important}
+.blip-wrap.active .blip{background:var(--orange);border-color:#0E0E0E;transform:scale(1.15)}
+.blip-wrap.active .blip svg{fill:#0E0E0E}
+.blip-wrap.active .blip::after{content:'';position:absolute;inset:-9px;border-radius:50%;border:2px solid var(--orange);animation:ping 1.6s ease-out infinite}
+@keyframes ping{from{opacity:1;transform:scale(.7)}to{opacity:0;transform:scale(1.5)}}
+.leaflet-tooltip.blip-tip{background:#0E0E0E;color:#F2EEE3;border:0;border-radius:0;padding:.35rem .65rem;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;box-shadow:3px 3px 0 var(--orange)}
+.blip-tip b{display:block;font-family:var(--display);font-weight:400;font-size:1.05rem;letter-spacing:.02em;line-height:1.1}
+.blip-tip small{color:#A7A196}
+.leaflet-tooltip-top.blip-tip::before{border-top-color:#0E0E0E}
+.gps-route{stroke:var(--orange);filter:drop-shadow(0 0 5px rgba(255,90,31,.8));animation:dash 1s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-12}}
+.leafmap .leaflet-control-attribution{background:rgba(14,14,14,.75);color:#8A857C;font-size:10px;font-family:var(--mono)}
+.leafmap .leaflet-control-attribution a{color:#CFCAC0}
+.leafmap .leaflet-container:focus,.leafmap:focus{outline:none}
+/* HUD */
+.hud{position:absolute;z-index:2;color:#F2EEE3;font-family:var(--mono)}
+.hud-tl{top:12px;left:12px;min-width:180px;padding:.65rem .85rem;background:rgba(14,14,14,.86);border-left:4px solid var(--orange);pointer-events:none}
+.hud-k{display:block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#A7A196}
+.hud-tl strong{display:block;font-family:var(--display);font-weight:400;font-size:1.6rem;line-height:1.05;text-transform:uppercase}
+#hudSub,#hudDist{display:block;font-size:.72rem;color:#CFCAC0}
+#hudDist{margin-top:.25rem;color:var(--orange);font-weight:700}
+.hud-tr{top:12px;right:12px;display:flex;flex-direction:column;gap:6px}
+.hud-btn{width:38px;height:38px;display:grid;place-items:center;background:rgba(14,14,14,.86);color:#F2EEE3;border:1.5px solid rgba(242,238,227,.4);font-family:var(--mono);font-size:1.15rem;font-weight:700;line-height:1;transition:background .15s,color .15s}
+.hud-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2}
+.hud-btn:hover{background:var(--orange);color:#0E0E0E;border-color:#0E0E0E}
+.hud-bl{left:12px;bottom:12px;padding:.3rem .55rem;background:rgba(14,14,14,.8);font-size:.7rem;pointer-events:none}
+.hud-compass{right:14px;bottom:34px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;border:1.5px solid rgba(242,238,227,.55);background:rgba(14,14,14,.65);font-family:var(--display);font-size:1rem;pointer-events:none}
+.hud-compass::before{content:'';position:absolute;top:-7px;left:50%;translate:-50% 0;border:6px solid transparent;border-bottom:8px solid var(--orange);border-top:0}
+/* list icons reuse the blip look */
+.place .blip.mini{width:30px;height:30px;flex-shrink:0;border-width:1.5px}
+.place .blip.mini svg{width:14px;height:14px}
+.place[aria-pressed="true"] .blip.mini{background:#0E0E0E;border-color:#0E0E0E}
+.place[aria-pressed="true"] .blip.mini svg{fill:var(--orange)}
 
 /* ---------- CONTACT : orange poster ---------- */
 .contact{display:grid;grid-template-columns:1fr 1.15fr;gap:3rem;padding:3.5rem;background:var(--orange);color:#0E0E0E;border:3px solid #0E0E0E;box-shadow:12px 12px 0 #0E0E0E;
@@ -388,6 +431,9 @@ footer a:hover{background:var(--orange);color:#0E0E0E}
   .places{flex-direction:row;overflow-x:auto;padding:0 .3rem .5rem 0}
   .place{flex:0 0 auto;width:auto}
   .place small{display:none}
+  .map-frame{min-height:440px}
+  .hud-tl{min-width:0;padding:.5rem .7rem}
+  .hud-tl strong{font-size:1.25rem}
   .contact{grid-template-columns:1fr;gap:2rem;padding:2.2rem 1.4rem;box-shadow:7px 7px 0 #0E0E0E}
   .contact form{transform:none;padding:1.3rem}
 }
@@ -727,18 +773,32 @@ footer a:hover{background:var(--orange);color:#0E0E0E}
 <section id="map" aria-labelledby="map-t">
   <div class="sec-head reveal">
     <div><div class="sec-label">06 · Voyages</div><h2 class="sec-title" id="map-t">Ma carte</h2></div>
+    <p class="sec-sub">Choisissez un lieu : le GPS trace la route depuis Bandol.</p>
   </div>
   <div class="card map-wrap reveal">
     <div class="places" role="group" aria-label="Lieux">
-      <button class="place" type="button" data-place="bandol" aria-pressed="true"><span class="emo" aria-hidden="true">🏠</span><span><strong>Bandol</strong><small>Chez moi</small></span></button>
-      <button class="place" type="button" data-place="sophia" aria-pressed="false"><span class="emo" aria-hidden="true">🎓</span><span><strong>Sophia Antipolis</strong><small>DSTI, mon école</small></span></button>
-      <button class="place" type="button" data-place="lyon" aria-pressed="false"><span class="emo" aria-hidden="true">💼</span><span><strong>Lyon</strong><small>REVCOO</small></span></button>
-      <button class="place" type="button" data-place="marseille" aria-pressed="false"><span class="emo" aria-hidden="true">⭐</span><span><strong>Marseille</strong><small>Mon nouveau coup de cœur</small></span></button>
-      <button class="place" type="button" data-place="nice" aria-pressed="false"><span class="emo" aria-hidden="true">💙</span><span><strong>Nice</strong><small>Mon premier coup de cœur</small></span></button>
+      <button class="place" type="button" data-place="bandol" aria-pressed="true"><span class="emo blip mini" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span><span><strong>Bandol</strong><small>Chez moi</small></span></button>
+      <button class="place" type="button" data-place="sophia" aria-pressed="false"><span class="emo blip mini" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4L1 9l11 5 9-4.1V16h2V9z"/><path d="M5 12.5V16c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.5l-7 3.2z"/></svg></span><span><strong>Sophia Antipolis</strong><small>DSTI, mon école</small></span></button>
+      <button class="place" type="button" data-place="lyon" aria-pressed="false"><span class="emo blip mini" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4h6a1 1 0 0 1 1 1v2h4a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4V5a1 1 0 0 1 1-1zm1 2v1h4V6z"/></svg></span><span><strong>Lyon</strong><small>REVCOO</small></span></button>
+      <button class="place" type="button" data-place="marseille" aria-pressed="false"><span class="emo blip mini" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.7 21.4l1.5-7.1L1.8 9.4 9 8.6z"/></svg></span><span><strong>Marseille</strong><small>Mon nouveau coup de cœur</small></span></button>
+      <button class="place" type="button" data-place="nice" aria-pressed="false"><span class="emo blip mini" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg></span><span><strong>Nice</strong><small>Mon premier coup de cœur</small></span></button>
     </div>
     <div class="map-frame">
-      <iframe id="mapFrame" title="Carte : Bandol" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46052.5!2d5.754186!3d43.136418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c907351cd7f56f%3A0x3e735b19f687c73c!2sBandol%2C%20France!5e1!3m2!1sfr!2sfr!4v1234567890123!5m2!1sfr!2sfr"></iframe>
+      <div id="leafmap" class="leafmap" role="region" aria-label="Carte interactive de mes lieux"></div>
+      <div class="map-vignette" aria-hidden="true"></div>
+      <div class="hud hud-tl" aria-live="polite">
+        <span class="hud-k">Position</span>
+        <strong id="hudName">Bandol</strong>
+        <span id="hudSub">Chez moi</span>
+        <span id="hudDist">Point de départ</span>
+      </div>
+      <div class="hud hud-tr">
+        <button class="hud-btn" id="zIn" type="button" aria-label="Zoomer">+</button>
+        <button class="hud-btn" id="zOut" type="button" aria-label="Dézoomer">−</button>
+        <button class="hud-btn" id="zAll" type="button" aria-label="Voir tous les lieux"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      </div>
+      <div class="hud hud-bl" id="hudCoords">43.1364°N · 5.7542°E</div>
+      <div class="hud hud-compass" aria-hidden="true">N</div>
     </div>
   </div>
 </section>
@@ -891,22 +951,80 @@ form.addEventListener('submit', function(e){
     .finally(function(){ btn.disabled=false; btn.innerHTML=html; });
 });
 
-/* ---------- Map ---------- */
-var MAPS={
-  bandol:['Bandol','https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46052.5!2d5.754186!3d43.136418!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c907351cd7f56f%3A0x3e735b19f687c73c!2sBandol%2C%20France!5e1!3m2!1sfr!2sfr!4v1234567890123!5m2!1sfr!2sfr'],
-  sophia:['Sophia Antipolis','https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d984!2d7.0749757!3d43.6152175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cc2b217ea0dbc3%3A0x2a9003c14d8964f3!2sDSTI%20School%20of%20Engineering%20%7C%20Campus%20Nice%20Sophia-Antipolis!5e1!3m2!1sfr!2sfr!4v1234567890124!5m2!1sfr!2sfr'],
-  lyon:['Lyon','https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d89400!2d4.835659!3d45.764043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ea516ae88797%3A0x408ab2ae4bb21f0!2sLyon!5e1!3m2!1sfr!2sfr!4v1234567890125!5m2!1sfr!2sfr'],
-  marseille:['Marseille','https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d92800!2d5.369784!3d43.296482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c9bf27b2e66241%3A0x4008cd2497c69020!2sMarseille!5e1!3m2!1sfr!2sfr!4v1234567890126!5m2!1sfr!2sfr'],
-  nice:['Nice','https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d92800!2d7.261953!3d43.710173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cdd0106a852d31%3A0x40819a5fd979a70!2sNice!5e1!3m2!1sfr!2sfr!4v1234567890127!5m2!1sfr!2sfr']
+/* ---------- Map : game-style HUD on Leaflet (loads when scrolled near) ---------- */
+var PLACES={
+  bandol:   {name:'Bandol',          sub:'Chez moi',             ll:[43.1364,5.7542], icon:'home',  z:12},
+  sophia:   {name:'Sophia Antipolis',sub:'DSTI, mon école',      ll:[43.6152,7.0750], icon:'cap',   z:13},
+  lyon:     {name:'Lyon',            sub:'REVCOO',               ll:[45.7640,4.8357], icon:'work',  z:11},
+  marseille:{name:'Marseille',       sub:'Mon nouveau coup de cœur', ll:[43.2965,5.3698], icon:'star', z:11},
+  nice:     {name:'Nice',            sub:'Mon premier coup de cœur', ll:[43.7102,7.2620], icon:'heart', z:12}
 };
-var frame=$('#mapFrame');
-$$('.place').forEach(function(b){
-  b.addEventListener('click', function(){
-    var m=MAPS[b.dataset.place]; if(!m) return;
-    $$('.place').forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true':'false'); });
-    frame.src=m[1]; frame.title='Carte : '+m[0];
+var ICONS={home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',cap:'<path d="M12 4L1 9l11 5 9-4.1V16h2V9z"/><path d="M5 12.5V16c0 1.7 3.1 3 7 3s7-1.3 7-3v-3.5l-7 3.2z"/>',work:'<path d="M9 4h6a1 1 0 0 1 1 1v2h4a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4V5a1 1 0 0 1 1-1zm1 2v1h4V6z"/>',star:'<path d="M12 2l3 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.7 21.4l1.5-7.1L1.8 9.4 9 8.6z"/>',heart:'<path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/>'};
+var mapEl=$('#leafmap'), M={map:null,markers:{},route:null,bounds:null};
+function fmt(ll){ return Math.abs(ll.lat).toFixed(4)+'°'+(ll.lat>=0?'N':'S')+' · '+Math.abs(ll.lng).toFixed(4)+'°'+(ll.lng>=0?'E':'O'); }
+function km(a,b){ var R=6371,t=Math.PI/180,dLa=(b[0]-a[0])*t,dLo=(b[1]-a[1])*t,x=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(a[0]*t)*Math.cos(b[0]*t)*Math.sin(dLo/2)*Math.sin(dLo/2); return Math.round(R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))); }
+
+function selectPlace(k){
+  var p=PLACES[k]; if(!p) return;
+  $$('.place').forEach(function(x){ x.setAttribute('aria-pressed', x.dataset.place===k ? 'true':'false'); });
+  $('#hudName').textContent=p.name; $('#hudSub').textContent=p.sub;
+  $('#hudDist').textContent = k==='bandol' ? 'Point de départ' : '≈ '+km(PLACES.bandol.ll,p.ll)+' km de Bandol';
+  $('#hudCoords').textContent=fmt({lat:p.ll[0],lng:p.ll[1]});
+  if(!M.map){ var f=mapEl.querySelector('iframe'); if(f){ f.src='https://www.google.com/maps?q='+encodeURIComponent(p.name+', France')+'&z=12&output=embed'; f.title='Carte : '+p.name; } return; }
+  Object.keys(M.markers).forEach(function(x){ var el=M.markers[x].getElement(); if(el) el.classList.toggle('active',x===k); });
+  if(M.route){ M.map.removeLayer(M.route); M.route=null; }
+  if(k!=='bandol'){
+    M.route=L.polyline([PLACES.bandol.ll,p.ll],{className:'gps-route',weight:4,dashArray:'2 10',lineCap:'round',interactive:false}).addTo(M.map);
+    M.map.flyToBounds(L.latLngBounds([PLACES.bandol.ll,p.ll]),{padding:[90,90],duration:reduce?0:1.3,maxZoom:p.z});
+  } else {
+    M.map.flyTo(p.ll,p.z,{duration:reduce?0:1.3});
+  }
+}
+$$('.place').forEach(function(b){ b.addEventListener('click', function(){ selectPlace(b.dataset.place); }); });
+
+function fallbackMap(){
+  mapEl.classList.add('fallback');
+  mapEl.innerHTML='<iframe title="Carte : Bandol" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Bandol%2C%20France&z=12&output=embed"></iframe>';
+  ['zIn','zOut','zAll'].forEach(function(id){ $('#'+id).hidden=true; });
+}
+function initMap(){
+  var map=L.map(mapEl,{zoomControl:false,scrollWheelZoom:false,minZoom:5,maxZoom:16,zoomSnap:.5});
+  M.map=map;
+  map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,className:'tiles-base',
+    attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · © <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'}).addTo(map);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,className:'tiles-labels',pane:'shadowPane'}).addTo(map);
+  var pts=[];
+  Object.keys(PLACES).forEach(function(k){
+    var p=PLACES[k]; pts.push(p.ll);
+    var icon=L.divIcon({className:'blip-wrap',html:'<span class="blip"><svg viewBox="0 0 24 24" aria-hidden="true">'+ICONS[p.icon]+'</svg></span>',iconSize:[34,34],iconAnchor:[17,17]});
+    var m=L.marker(p.ll,{icon:icon,title:p.name,alt:p.name,keyboard:true,riseOnHover:true}).addTo(map);
+    m.bindTooltip('<b>'+p.name+'</b><small>'+p.sub+'</small>',{direction:'top',offset:[0,-20],className:'blip-tip'});
+    m.on('click keypress',function(){ selectPlace(k); });
+    M.markers[k]=m;
   });
-});
+  M.bounds=L.latLngBounds(pts);
+  map.fitBounds(M.bounds,{padding:[70,70]});
+  var el=M.markers.bandol.getElement(); if(el) el.classList.add('active');
+  map.on('mousemove',function(e){ $('#hudCoords').textContent=fmt(e.latlng); });
+  // wheel zoom only after the visitor clicks the map (no scroll trap)
+  map.on('click focus',function(){ map.scrollWheelZoom.enable(); });
+  map.on('mouseout blur',function(){ map.scrollWheelZoom.disable(); });
+  $('#zIn').addEventListener('click',function(){ map.zoomIn(); });
+  $('#zOut').addEventListener('click',function(){ map.zoomOut(); });
+  $('#zAll').addEventListener('click',function(){
+    if(M.route){ map.removeLayer(M.route); M.route=null; }
+    map.flyToBounds(M.bounds,{padding:[70,70],duration:reduce?0:1.2});
+  });
+}
+function loadLeaflet(){
+  var css=document.createElement('link'); css.rel='stylesheet'; css.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'; document.head.appendChild(css);
+  var s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+  s.onload=function(){ try{ initMap(); }catch(e){ fallbackMap(); } };
+  s.onerror=fallbackMap;
+  document.head.appendChild(s);
+}
+new IntersectionObserver(function(es,o){ if(es[0].isIntersecting){ o.disconnect(); loadLeaflet(); } },{rootMargin:'500px'}).observe($('#map'));
 
 /* ---------- Gallery ----------
    Fastest option: list your files here, e.g.
