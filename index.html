@@ -321,8 +321,9 @@ dialog.lightbox::backdrop{background:transparent}
 .map-frame{position:relative;min-height:500px;overflow:hidden;border:2px solid var(--line);box-shadow:var(--hard-lg);background:#1b1f23}
 .leafmap{position:absolute;inset:0;z-index:0;background:#1b1f23;font-family:var(--mono)}
 .leafmap.leaflet-container{background:#1b1f23;font-family:var(--mono)}
-.leafmap .tiles-base{filter:brightness(1.7) contrast(1.05) saturate(.35) sepia(.2) hue-rotate(170deg)}
-.leafmap .tiles-labels{opacity:.7}
+.leafmap .tiles-base{filter:brightness(1.3) contrast(1.05) sepia(.25) hue-rotate(175deg) saturate(.7)}
+.leafmap .tiles-labels{opacity:.8}
+.leafmap .tiles-osm{filter:invert(1) hue-rotate(185deg) grayscale(.6) brightness(.85) contrast(1.1)}
 .leafmap.fallback iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(1) invert(.92) contrast(.9) brightness(.9)}
 .map-vignette{position:absolute;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 140px rgba(0,0,0,.7);
   background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
@@ -991,9 +992,21 @@ function initMap(){
   var map=L.map(mapEl,{zoomControl:false,scrollWheelZoom:false,minZoom:5,maxZoom:16,zoomSnap:.5});
   M.map=map;
   map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,className:'tiles-base',
-    attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> · © <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'}).addTo(map);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,className:'tiles-labels',pane:'shadowPane'}).addTo(map);
+  // Basemap: Esri dark grey (no API key). If it can't load, switch to OpenStreetMap darkened with CSS.
+  var ESRI='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
+  var base=L.tileLayer(ESRI+'World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,className:'tiles-base',
+    attribution:'Tuiles © <a href="https://www.esri.com" target="_blank" rel="noopener">Esri</a> — Esri, HERE, Garmin, © OpenStreetMap'}).addTo(map);
+  var labels=L.tileLayer(ESRI+'World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxZoom:16,className:'tiles-labels',pane:'shadowPane'}).addTo(map);
+  var ok=0, bad=0, swapped=false;
+  base.on('tileload',function(){ ok++; });
+  base.on('tileerror',function(){
+    bad++;
+    if(!swapped && ok===0 && bad>=4){
+      swapped=true; map.removeLayer(base); map.removeLayer(labels);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,className:'tiles-osm',
+        attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'}).addTo(map);
+    }
+  });
   var pts=[];
   Object.keys(PLACES).forEach(function(k){
     var p=PLACES[k]; pts.push(p.ll);
