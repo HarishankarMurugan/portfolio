@@ -1044,7 +1044,7 @@ new IntersectionObserver(function(es,o){ if(es[0].isIntersecting){ o.disconnect(
    var GALLERY = ['IMAGES/photo-1.jpg','IMAGES/photo-2.jpg','IMAGES/video-1.mp4'];
    If left empty, the page auto-detects IMAGES/photo-N and IMAGES/video-N (N = 1..30). */
 var GALLERY = [];
-var IMG_EXT=['jpg','jpeg','png','webp'], VID_EXT=['mp4','webm','mov'], MAX=30, FIRST=6;
+var IMG_EXT=['jpg','jpeg','png','webp','JPG','JPEG','PNG','WEBP'], VID_EXT=['mp4','webm','mov','MP4','MOV'], MAX=30, FIRST=8;
 var grid=$('#gallery'), moreBtn=$('#moreBtn'), media=[];
 
 function withTimeout(p,ms){ return Promise.race([p,new Promise(function(r){ setTimeout(function(){ r(false); },ms); })]); }
