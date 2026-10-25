@@ -4,10 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Harishankar Murugan · Data Analyst Power BI, SQL, Azure</title>
-<meta name="description" content="Harishankar Murugan, Data Analyst (Power BI, SQL, Python, Azure). 3+ ans d'expérience, basé à Bandol. Disponible immédiatement en CDI / CDD.">
+<meta name="description" content="Harishankar Murugan, Data Analyst certifié Microsoft PL-300 (Power BI, SQL, Python, Azure). 3+ ans d'expérience, basé à Bandol. Disponible immédiatement en CDI / CDD.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Harishankar Murugan · Data Analyst">
-<meta property="og:description" content="Power BI, SQL, Python, Azure. Disponible immédiatement en CDI / CDD.">
+<meta property="og:description" content="Certifié Microsoft PL-300 · Power BI, SQL, Python, Azure. Disponible immédiatement en CDI / CDD.">
+<meta property="og:url" content="https://harishankarmurugan.github.io/portfolio/">
+<meta property="og:image" content="https://harishankarmurugan.github.io/portfolio/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Portfolio de Harishankar Murugan, Data Analyst">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://harishankarmurugan.github.io/portfolio/">
 <meta name="theme-color" content="#0E0E0E">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='0' fill='%23FF5A1F'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='800' font-size='28' fill='%230E0E0E'%3EHM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +43,11 @@
   "email":"mailto:harishankarmurugan21@gmail.com",
   "address":{"@type":"PostalAddress","addressLocality":"Bandol","addressCountry":"FR"},
   "sameAs":["https://github.com/HarishankarMurugan11"],
-  "knowsAbout":["Power BI","SQL","Python","Azure","Excel","Microsoft Fabric","ETL"]
+  "knowsAbout":["Power BI","SQL","Python","Azure","Excel","Microsoft Fabric","ETL"],
+  "hasCredential":[
+    {"@type":"EducationalOccupationalCredential","name":"Microsoft Certified: Power BI Data Analyst Associate (PL-300)","credentialCategory":"certification","recognizedBy":{"@type":"Organization","name":"Microsoft"},"url":"https://learn.microsoft.com/en-us/users/harishankarmurugan-7922/credentials/d9175e690a7afacf"},
+    {"@type":"EducationalOccupationalCredential","name":"Google Data Analytics Professional Certificate","credentialCategory":"certificate","recognizedBy":{"@type":"Organization","name":"Google"},"url":"https://coursera.org/verify/professional-cert/EMNKN0OHSJ0C"}
+  ]
 }
 </script>
 
@@ -279,6 +291,36 @@ details.more .highlights li::before{content:'☆'}
 .certs time,.pending{font-family:var(--mono);font-size:.74rem;font-weight:700;white-space:nowrap;text-transform:uppercase}
 .certs time{color:var(--ink3)}
 .pending{padding:.2rem .55rem;background:var(--orange);color:#0E0E0E;border:1.5px solid #0E0E0E;transform:rotate(-3deg)}
+.certs a{border-bottom:1.5px dashed var(--soft);transition:color .15s,border-color .15s}
+.certs a:hover{color:var(--orange);border-color:var(--orange)}
+
+/* ---------- MICROSOFT CERTIFIED · PL-300 (glowing badge) ---------- */
+@keyframes msglow{
+  0%,100%{filter:drop-shadow(0 0 5px rgba(0,120,212,.6)) drop-shadow(0 0 14px rgba(0,120,212,.35))}
+  50%{filter:drop-shadow(0 0 10px rgba(90,170,255,.95)) drop-shadow(0 0 28px rgba(0,120,212,.65))}}
+.ms-badge{display:block;height:auto;animation:msglow 2.6s ease-in-out infinite}
+.ms-k{display:block;font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#6CB6FF}
+.ms-v{display:inline-flex;align-items:center;gap:.3rem;font-family:var(--mono);font-size:.72rem;font-weight:700;color:#F2EEE3;border-bottom:1px solid rgba(242,238,227,.45);transition:color .15s,border-color .15s}
+.ms-v svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.4}
+/* hero card */
+.ms-cert{display:flex;align-items:center;gap:1rem;width:fit-content;max-width:100%;padding:.65rem 1.2rem .65rem .75rem;background:#0E0E0E;color:#F2EEE3;border:2px solid #0E0E0E;box-shadow:5px 5px 0 #0078D4;transition:transform .15s,box-shadow .15s}
+.ms-cert:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #0078D4}
+.ms-cert:hover .ms-v{color:#6CB6FF;border-color:#6CB6FF}
+.ms-cert .ms-badge{width:70px}
+.ms-cert strong{display:block;margin:.1rem 0 .3rem;font-family:var(--display);font-weight:400;font-size:1.45rem;line-height:1.02;text-transform:uppercase}
+/* featured card in Formation */
+.cert-feature{display:flex;align-items:center;gap:2rem;padding:1.6rem 2rem;background:#0E0E0E;color:#F2EEE3;border:2px solid #0E0E0E;box-shadow:6px 6px 0 #0078D4;transition:transform .15s,box-shadow .15s}
+.cert-feature:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 #0078D4}
+.cert-feature:hover .ms-v{color:#6CB6FF;border-color:#6CB6FF}
+.cert-feature .ms-badge{width:130px;flex-shrink:0}
+.cert-feature h3{margin:.35rem 0 .55rem;font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,3.2vw,2.6rem);line-height:.95;text-transform:uppercase}
+.cf-meta{margin-bottom:.8rem;font-family:var(--mono);font-size:.78rem;line-height:1.65;color:#CFCAC0}
+.cf-meta b{color:#F2EEE3}
+[data-theme="dark"] .ms-cert,[data-theme="dark"] .cert-feature{background:#1B1B1A;border-color:#F2EEE3}
+@media (max-width:560px){
+  .ms-cert .ms-badge{width:48px}.ms-cert strong{font-size:1.1rem}
+  .cert-feature{flex-direction:column;align-items:flex-start;gap:1rem}.cert-feature .ms-badge{width:88px}
+}
 
 /* ---------- GALLERY ---------- */
 .gallery-tools{display:flex;align-items:center;gap:.8rem;justify-content:flex-end;flex-wrap:wrap}
@@ -515,6 +557,14 @@ footer a:hover{background:var(--orange);color:#0E0E0E}
       <h1>Harishankar <span>Murugan</span></h1>
       <p class="hero-role" style="margin-top:.8rem">Data Analyst · Power BI &amp; Data Engineering</p>
     </div>
+    <a class="ms-cert" href="https://learn.microsoft.com/en-us/users/harishankarmurugan-7922/credentials/d9175e690a7afacf" target="_blank" rel="noopener noreferrer">
+      <img class="ms-badge" src="badge-pl300.png" alt="Badge Microsoft Certified Associate" width="294" height="304">
+      <span>
+        <span class="ms-k">Certifié Microsoft · PL-300</span>
+        <strong>Power BI Data Analyst Associate</strong>
+        <span class="ms-v">Vérifier la certification <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+      </span>
+    </a>
     <p class="hero-desc">Je transforme des données dispersées en tableaux de bord et modèles qui aident à décider : <strong>Power BI, SQL, Python, Azure et Excel</strong>. Plus de 3 ans d'expérience, de l'ETL jusqu'à la restitution aux équipes métier.</p>
     <div class="hero-meta">
       <span><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Bandol, France</span>
@@ -543,10 +593,10 @@ footer a:hover{background:var(--orange);color:#0E0E0E}
   <div class="stat"><div class="stat-num" data-count="3" data-suffix="+">3+</div><div class="stat-label">ans d'expérience data</div></div>
   <div class="stat"><div class="stat-num" data-count="12" data-prefix="+" data-suffix=" %">+12 %</div><div class="stat-label">ventes analysées · L'Oréal (NIQ)</div></div>
   <div class="stat"><div class="stat-num" data-count="20" data-prefix="+" data-suffix=" %">+20 %</div><div class="stat-label">ventes de location · AM Construction</div></div>
-  <div class="stat"><div class="stat-num" data-count="6" data-suffix="+">6+</div><div class="stat-label">certifications obtenues</div></div>
+  <div class="stat"><div class="stat-num" data-count="7">7</div><div class="stat-label">certifications, dont Microsoft PL-300</div></div>
 </div>
 
-<div class="marquee" aria-hidden="true"><div class="marquee-track"><span>Power BI</span><span>SQL</span><span>Python</span><span>Azure</span><span>Microsoft Fabric</span><span>Excel</span><span>SSIS</span><span>DAX</span><span>Data Engineering</span><span>Power BI</span><span>SQL</span><span>Python</span><span>Azure</span><span>Microsoft Fabric</span><span>Excel</span><span>SSIS</span><span>DAX</span><span>Data Engineering</span></div></div>
+<div class="marquee" aria-hidden="true"><div class="marquee-track"><span>Power BI</span><span>Microsoft Certified PL-300</span><span>SQL</span><span>Python</span><span>Azure</span><span>Microsoft Fabric</span><span>Excel</span><span>SSIS</span><span>DAX</span><span>Data Engineering</span><span>Power BI</span><span>Microsoft Certified PL-300</span><span>SQL</span><span>Python</span><span>Azure</span><span>Microsoft Fabric</span><span>Excel</span><span>SSIS</span><span>DAX</span><span>Data Engineering</span></div></div>
 
 
 <!-- EXPERIENCE -->
@@ -738,6 +788,15 @@ footer a:hover{background:var(--orange);color:#0E0E0E}
     <div><div class="sec-label">04 · Formation</div><h2 class="sec-title" id="ed-t">Formation &amp; certifications</h2></div>
   </div>
   <div class="bento">
+    <a class="cert-feature c4 reveal" href="https://learn.microsoft.com/en-us/users/harishankarmurugan-7922/credentials/d9175e690a7afacf" target="_blank" rel="noopener noreferrer">
+      <img class="ms-badge" src="badge-pl300.png" alt="Badge Microsoft Certified Associate" width="294" height="304">
+      <div>
+        <span class="ms-k">Certification officielle Microsoft · Examen PL-300</span>
+        <h3>Microsoft Certified : Power BI Data Analyst Associate</h3>
+        <p class="cf-meta">Obtenue le <b>23 octobre 2026</b> · valide jusqu'au 24 octobre 2027<br>ID de certification : D9175E690A7AFACF</p>
+        <span class="ms-v">Vérifier sur Microsoft Learn <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></span>
+      </div>
+    </a>
     <div class="card c2 reveal">
       <div class="edu">
         <div class="logo"><span class="logo-fallback" aria-hidden="true">DSTI</span><img src="logo-dsti.png" alt="DSTI" onerror="this.remove()"></div>
@@ -752,9 +811,9 @@ footer a:hover{background:var(--orange);color:#0E0E0E}
     <div class="card c2 reveal">
       <div class="sk-title"><span class="sk-dot" style="background:var(--amber)"></span>Certifications</div>
       <ul class="certs">
+        <li><a href="https://learn.microsoft.com/en-us/users/harishankarmurugan-7922/credentials/d9175e690a7afacf" target="_blank" rel="noopener noreferrer">PL-300 · Microsoft Certified : Power BI Data Analyst Associate</a> <time datetime="2026-10">Oct 2026</time></li>
+        <li><a href="https://coursera.org/verify/professional-cert/EMNKN0OHSJ0C" target="_blank" rel="noopener noreferrer">Google Data Analytics · Certificat professionnel</a> <time datetime="2026-07">Juil 2026</time></li>
         <li>Neo4j Certified Professional <time datetime="2025-08">Août 2025</time></li>
-        <li>DAX avancé · Power BI <time datetime="2025-07">Juil 2025</time></li>
-        <li>PL-300 Power BI Data Analyst Associate <span class="pending">En cours</span></li>
         <li>Fabric Data Flows &amp; Storage <span class="pending">En cours</span></li>
         <li>MySQL Bootcamp complet <time datetime="2023-08">Août 2023</time></li>
         <li>Power BI Virtual Case · PwC <time datetime="2023-06">Juin 2023</time></li>
